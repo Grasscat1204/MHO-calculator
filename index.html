@@ -113,6 +113,11 @@ h2:first-child{margin-top:0}
 .now{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;padding:10px max(4vw,16px);background:color-mix(in srgb,var(--gold) 16%,var(--bg));border-bottom:1px solid var(--line);font-size:15px}
 .now .pill{background:var(--red);color:#fff;font-size:13px;font-weight:700;padding:2px 10px;border-radius:11px}
 .now span:last-child{color:var(--mut);white-space:nowrap}
+.tabs{display:flex;gap:4px;padding:10px max(4vw,16px) 0;border-bottom:2px solid var(--line);overflow-x:auto}
+.tabs button{min-height:46px;padding:0 20px;border:0;border-bottom:3px solid transparent;margin-bottom:-2px;background:none;color:var(--mut);font:700 16px "Noto Sans KR",sans-serif;cursor:pointer;white-space:nowrap}
+.tabs button:hover{color:var(--ink)}
+.tabs button[aria-selected=true]{color:var(--red);border-bottom-color:var(--red)}
+.tabs button:focus-visible{outline:3px solid var(--gold);outline-offset:-3px}
 .upd{display:block;margin-top:8px;font-size:12px;opacity:.8}
 .mob{display:none}
 @media(max-width:900px){.wrap{grid-template-columns:minmax(0,1fr)}.rc{position:static}.pick{grid-template-columns:minmax(0,1fr)}}
@@ -153,9 +158,10 @@ h2:first-child{margin-top:0}
 </div>
 </header>
 <div class="now"><span class="pill">진행 중 픽업</span><b>특별 모집 : 미도리</b><span>10월 29일 (목) ~ 11월 27일 (금)</span></div>
+<nav class="tabs" role="tablist"><button type="button" role="tab" id="tbPlan" aria-controls="tabPlan">구매 플랜</button><button type="button" role="tab" id="tbPick" aria-controls="tabPick">픽업 돌파 계산기</button></nav>
 <div class="mob"><span>합계 <b id="mTot">₩0</b></span><span>한정 <b id="mPull">0회</b></span></div>
 
-<main class="band">
+<main class="band" id="tabPlan" role="tabpanel">
 <div class="wrap">
 <section>
 <div class="bar-tools">
@@ -201,14 +207,14 @@ h2:first-child{margin-top:0}
 </div>
 </main>
 
-<section class="band" style="padding-top:0">
+<section class="band" id="tabPick" role="tabpanel" hidden>
 <div class="pick">
 <div class="card">
 <h2>픽업 돌파 계산기</h2>
-<p class="note">노란 코인처럼 위 계획을 포함할지 고를 수 있어요.</p>
+<p class="note">"구매 플랜 포함"을 켜면 구매 플랜 탭에서 고른 상품의 모집권도 더해서 계산해요.</p>
 <div class="field"><label for="iLim"><svg class="ic" aria-hidden="true"><use href="#i-lim"/></svg>보유 한정 모집권</label><input type="number" id="iLim" min="0"></div>
 <div class="field"><label for="iRuta"><svg class="ic" aria-hidden="true"><use href="#i-ruta"/></svg>보유 루타 코인</label><input type="number" id="iRuta" min="0" step="10"></div>
-<div class="field"><label for="iInc">위 구매 계획도 포함</label><input type="checkbox" id="iInc"></div>
+<div class="field"><label for="iInc">구매 플랜 포함</label><input type="checkbox" id="iInc"></div>
 <div class="field"><label for="iPity">현재 SSR 천장 카운트</label><input type="number" id="iPity" min="0" max="89"></div>
 <div class="field"><label for="iG">픽업 확정 상태 (직전 SSR 픽뚫)</label><input type="checkbox" id="iG"></div>
 <div class="field"><label for="iBan">이번 배너에서 뽑은 횟수</label><input type="number" id="iBan" min="0"></div>
@@ -270,7 +276,7 @@ const P=[
 const S=[["주간 모집 세일 (300코인)",300,0,10,8800,"주 2회",8],["모집-셀렉션 (₩28,000)",0,28000,20,28800,"시즌 2회",2]];
 const B=[["선택 안 함",0,""],["펑펑 화로",14500,"SSR 동반자 코지로 + 선택 1 · 육성 소재 · 레벨을 올려야 받음"],["쾅쾅 화로",28000,"펑펑 화로 보상 전부 + 코지로 추가 + 레벨 +10으로 시작 · 직접 구매 가격"],["쾅쾅 화로 (업그레이드)",32000,"펑펑 화로에서 쾅쾅 화로로 업그레이드 · 14,500 + 17,500 = 32,000원 · 직접 구매보다 4,000원 더 냄"]];
 const BP={lim:5,ruta:680,zen:4900000};
-const def={q:{"월정액 플랜":1},s:{},bp:1,own:0,p6480:141000,c6480:8080,iLim:0,iRuta:0,iInc:false,iPity:0,iG:false,iBan:0,iUsed:false,iOwn:0,iTgt:0,iAvg:62.5,view:"*",presets:[],pDef:true};
+const def={q:{"월정액 플랜":1},s:{},bp:1,own:0,p6480:141000,c6480:8080,iLim:0,iRuta:0,iInc:false,iPity:0,iG:false,iBan:0,iUsed:false,iOwn:0,iTgt:0,iAvg:62.5,view:"*",tab:"plan",presets:[],pDef:true};
 let st;
 try{let v=localStorage.getItem("mhoCalc2");if(v)st=Object.assign(structuredClone(def),JSON.parse(v));else{st=structuredClone(def);const o=JSON.parse(localStorage.getItem("mhoCalc")||"{}");if(o.presets)st.presets=o.presets}}catch(e){st=structuredClone(def)}
 const save=()=>{try{localStorage.setItem("mhoCalc2",JSON.stringify(st))}catch(e){}};
@@ -347,6 +353,9 @@ $("jLoad").onclick=()=>jIn($("jText").value);
 const DEF6480=[141000,8080],pd=$("pDef");
 const syncDef=()=>{pd.checked=!!st.pDef;["p6480","c6480"].forEach(id=>$(id).disabled=!!st.pDef);if(st.pDef){st.p6480=DEF6480[0];st.c6480=DEF6480[1];$("p6480").value=st.p6480;$("c6480").value=st.c6480}};
 pd.onchange=()=>{st.pDef=pd.checked;syncDef();rows()};syncDef();
+const setTab=t=>{st.tab=t;const pl=t!=="pick";$("tabPlan").hidden=!pl;$("tabPick").hidden=pl;$("tbPlan").setAttribute("aria-selected",pl);$("tbPick").setAttribute("aria-selected",!pl);document.querySelector(".mob").style.visibility=pl?"":"hidden";save()};
+$("tbPlan").onclick=()=>setTab("plan");$("tbPick").onclick=()=>setTab("pick");
+setTab(location.hash==="#pickup"?"pick":(st.tab||"plan"));
 $("pReset").onclick=()=>{st.q={};st.s={};st.bp=0;rows()};
 rows();
 }
