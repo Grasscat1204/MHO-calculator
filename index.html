@@ -110,6 +110,10 @@ h2:first-child{margin-top:0}
 .res span{font-size:13px;color:var(--mut)}.res b{display:block;font:800 26px "Gothic A1",sans-serif;white-space:nowrap}
 .res .hl b{color:var(--red)}
 .foot{color:var(--mut);font-size:13px;max-width:1240px;margin:0 auto}
+.now{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;padding:10px max(4vw,16px);background:color-mix(in srgb,var(--gold) 16%,var(--bg));border-bottom:1px solid var(--line);font-size:15px}
+.now .pill{background:var(--red);color:#fff;font-size:13px;font-weight:700;padding:2px 10px;border-radius:11px}
+.now span:last-child{color:var(--mut);white-space:nowrap}
+.upd{display:block;margin-top:8px;font-size:12px;opacity:.8}
 .mob{display:none}
 @media(max-width:900px){.wrap{grid-template-columns:minmax(0,1fr)}.rc{position:static}.pick{grid-template-columns:minmax(0,1fr)}}
 @media(max-width:640px){.hero{grid-template-columns:minmax(0,1fr)}
@@ -148,6 +152,7 @@ h2:first-child{margin-top:0}
 </div>
 </div>
 </header>
+<div class="now"><span class="pill">진행 중 픽업</span><b>특별 모집 : 미도리</b><span>10월 29일 (목) ~ 11월 27일 (금)</span></div>
 <div class="mob"><span>합계 <b id="mTot">₩0</b></span><span>한정 <b id="mPull">0회</b></span></div>
 
 <main class="band">
@@ -232,7 +237,7 @@ h2:first-child{margin-top:0}
 </div>
 </section>
 
-<footer class="band foot" style="padding-top:0">SSR 0.6%, 90회 안에 SSR 확정, SSR의 50%가 픽업, 놓치면 다음 SSR은 픽업 확정, 배너당 1회 120회 픽업 확정. 돌파 = 보유 장수 − 1. 월정액·배틀 패스 원화 가격 일부와 월간 팩 구성은 추정·공략 사이트 기준이라 게임에서 확인하세요. 첫 결제 2배 보너스는 빼고 계산했어요. 입력값은 이 브라우저에만 저장돼요.</footer>
+<footer class="band foot" style="padding-top:0">SSR 0.6%, 90회 안에 SSR 확정, SSR의 50%가 픽업, 놓치면 다음 SSR은 픽업 확정, 배너당 1회 120회 픽업 확정. 돌파 = 보유 장수 − 1. 월정액·배틀 패스 원화 가격 일부와 월간 팩 구성은 추정·공략 사이트 기준이라 게임에서 확인하세요. 첫 결제 2배 보너스는 빼고 계산했어요. 입력값은 이 브라우저에만 저장돼요.<span class="upd">업데이트 2026년 11월 24일</span></footer>
 
 <script>
 {
