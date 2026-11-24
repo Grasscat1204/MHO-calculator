@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>아웃랜더스 과금 계산기</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500;700;800&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* VOICE work tool, a money calculator for one player
+   IDEA the guild shop ledger: crimson akahane band, gold coin figures, a clean receipt
+   PICTURE the live plan result drawn large in the band: total paid, pulls bought, coin gauge
+   COLOUR white ground, deep crimson band, gold accent for figures, crimson for the best value
+   TYPE Gothic A1 800 for figures and titles, Noto Sans KR for text
+   LAYOUT band with result across the top; ranked list left, sticky receipt right; phone stacks with a slim result bar */
+:root{color-scheme:light dark;--bg:light-dark(#ffffff,#14100d);--ink:light-dark(#1b1410,#f3ece4);--mut:light-dark(#6b5d52,#b8aa9b);--line:light-dark(#e8dfd4,#3a302a);--panel:light-dark(#f8f4ef,#1e1814);--band:light-dark(#8f1d17,#4e110d);--gold:light-dark(#b9780a,#f2b33d);--red:light-dark(#c0291f,#ff6d5e);--chip:light-dark(#f1e9df,#2a221d)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:16px/1.55 "Noto Sans KR",system-ui,sans-serif;overflow-x:clip}
+h1,h2,.big,.fig-n{font-family:"Gothic A1","Noto Sans KR",sans-serif;letter-spacing:-.02em}
+.band{padding:clamp(22px,3.5vw,44px) max(4vw,16px)}
+.top{background:var(--band);color:#fff}
+.top h1{margin:0 0 14px;font-size:clamp(26px,3.6vw,38px);line-height:1.08;font-weight:800}
+.hero{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:clamp(16px,3vw,40px);align-items:end;max-width:1240px}
+.big{font-size:clamp(44px,7vw,76px);font-weight:800;line-height:1;color:#ffd27a;white-space:nowrap}
+.sub{font-size:17px;opacity:.92;margin-top:8px}
+.sub b{color:#ffd27a}
+.gauge{background:rgba(0,0,0,.22);border-radius:12px;padding:14px 16px}
+.gauge .lab{display:flex;justify-content:space-between;gap:8px;font-size:14px;opacity:.9}
+.track{height:14px;border-radius:7px;background:rgba(255,255,255,.18);margin:8px 0 12px;overflow:hidden;position:relative}
+.fill{height:100%;background:#ffd27a;border-radius:7px;transition:width .3s}
+.fill.over{background:#ff8a7a}
+.kv{display:grid;grid-template-columns:repeat(auto-fit,minmax(7.5em,1fr));gap:8px 14px}
+.kv div{font-size:13px;opacity:.85}.kv b{display:block;font:800 20px "Gothic A1",sans-serif;opacity:1;white-space:nowrap}
+.wrap{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:28px;max-width:1240px;margin:0 auto;align-items:start}
+.bar-tools{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}
+button,.seg label{font:inherit;cursor:pointer}
+.btn{min-height:44px;padding:0 16px;border-radius:10px;border:1px solid var(--line);background:var(--panel);color:var(--ink);font-weight:500}
+.btn:hover{border-color:var(--gold)}.btn:focus-visible,.st button:focus-visible,input:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+h2{font-size:22px;margin:28px 0 10px;font-weight:800}
+h2:first-child{margin-top:0}
+.note{color:var(--mut);font-size:14px;margin:0 0 10px}
+.list{border-top:2px solid var(--ink)}
+.row{display:grid;grid-template-columns:2.2em minmax(0,1fr) 6.2em 5.6em 6.4em 128px;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
+.row.head{font-size:13px;color:var(--mut);padding:8px 0}
+.row.on{background:linear-gradient(90deg,color-mix(in srgb,var(--gold) 12%,transparent),transparent 70%)}
+.rk{font:800 18px "Gothic A1",sans-serif;color:var(--mut);text-align:center}
+.row.best .rk{color:var(--red)}
+.nm b{font-weight:700}.nm small{display:block;color:var(--mut);font-size:13px;line-height:1.35}
+.tag{display:inline-block;font-size:12px;padding:1px 7px;border-radius:9px;background:var(--chip);color:var(--mut);margin-left:6px;vertical-align:2px}
+.num{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.pp{font-weight:700}
+.eff{height:6px;border-radius:3px;background:var(--line);margin-top:4px;overflow:hidden}.eff i{display:block;height:100%;background:var(--gold)}
+.row.best .eff i{background:var(--red)}.row.weak .pp{color:var(--mut)}
+.st{display:flex;align-items:center;justify-content:flex-end;gap:4px}
+.st button{width:40px;height:40px;border-radius:10px;border:1px solid var(--line);background:var(--panel);color:var(--ink);font-size:20px;line-height:1}
+.st button:disabled{opacity:.35;cursor:default}
+.st span{width:2.4em;text-align:center;font:800 18px "Gothic A1",sans-serif}
+.row.on .st span{color:var(--gold)}
+.seg{display:flex;flex-wrap:wrap;gap:8px}
+.seg label{display:flex;align-items:center;gap:8px;min-height:44px;padding:6px 14px;border:1px solid var(--line);border-radius:10px;background:var(--panel)}
+.seg input{accent-color:var(--red);width:18px;height:18px}
+.seg label:has(input:checked){border-color:var(--red)}
+.seg small{color:var(--mut)}
+.bpd{display:block;font-size:13px;line-height:1.4}
+#bp{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,15em),1fr))}
+#bp label{align-items:flex-start;padding:10px 14px}#bp input{margin-top:4px;flex:none}
+.flt{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px}
+.flt button{display:flex;align-items:center;gap:6px;min-height:44px;padding:4px 16px;border:1px solid var(--line);border-radius:22px;background:var(--panel);color:var(--ink);cursor:pointer;font:inherit;font-size:15px}
+.flt button:hover{border-color:var(--gold)}
+.flt button[aria-pressed=true]{background:var(--band);border-color:var(--band);color:#fff}
+.flt button[aria-pressed=true] .cnt{color:#ffd27a}
+.flt button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.flt .cnt{color:var(--mut);font-size:13px}
+.empty{padding:18px 0;color:var(--mut)}
+.btn.add{border-color:var(--gold);color:var(--gold);font-weight:700}
+.pform{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}
+.pform input{flex:1 1 14em;min-height:44px;font:16px "Noto Sans KR",sans-serif;padding:0 12px;border:1px solid var(--gold);border-radius:10px;background:var(--bg);color:var(--ink)}
+#pList:empty{display:none}
+.pre{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--panel)}
+.pre .ap{min-height:44px;padding:0 14px;border:0;background:none;color:var(--ink);font-weight:700;text-align:left;line-height:1.25}
+.pre .ap small{display:block;font-weight:400;color:var(--mut);font-size:12px}
+.pre .ap:hover{background:color-mix(in srgb,var(--gold) 14%,transparent)}
+.pre .px{width:44px;border:0;border-left:1px solid var(--line);background:none;color:var(--mut);font-size:18px}
+.pre .px.arm{background:var(--red);color:#fff;font-size:13px;width:auto;padding:0 10px}
+.rc{position:sticky;top:12px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px}
+.rc h2{margin:0 0 8px;font-size:19px}
+.ln{display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-bottom:1px dashed var(--line);font-size:15px}
+.ln b{white-space:nowrap;font-variant-numeric:tabular-nums}
+.ln.tot{border-bottom:2px solid var(--ink);font-size:17px}.ln.tot b{color:var(--red);font:800 22px "Gothic A1",sans-serif}
+.neg{color:var(--red)}
+.field{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:6px 0}
+.field label{font-size:15px}
+.field input[type=number]{width:7.5em;min-height:40px;font:16px "Noto Sans KR",sans-serif;padding:4px 8px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);text-align:right}
+.field input[type=checkbox]{width:22px;height:22px;accent-color:var(--red)}
+.pick{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;max-width:1240px;margin:0 auto}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px}
+.res{display:grid;grid-template-columns:repeat(auto-fit,minmax(9em,1fr));gap:12px;margin-bottom:14px}
+.res div{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:12px}
+.res span{font-size:13px;color:var(--mut)}.res b{display:block;font:800 26px "Gothic A1",sans-serif;white-space:nowrap}
+.res .hl b{color:var(--red)}
+.foot{color:var(--mut);font-size:13px;max-width:1240px;margin:0 auto}
+.mob{display:none}
+@media(max-width:900px){.wrap{grid-template-columns:minmax(0,1fr)}.rc{position:static}.pick{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:640px){.hero{grid-template-columns:minmax(0,1fr)}
+.row{grid-template-columns:2em minmax(0,1fr) auto;grid-template-areas:"r n s" "r a s";row-gap:2px}
+.row.head{display:none}.row .rk{grid-area:r}.row .nm{grid-area:n}.row .st{grid-area:s}
+.row .c1,.row .c2,.row .c3{display:none}.row .mx{grid-area:a;display:block;font-size:14px;color:var(--mut)}
+.mob{display:flex;position:sticky;bottom:0;z-index:5;justify-content:space-between;gap:10px;padding:10px 16px;background:var(--band);color:#fff;font-size:15px}.mob b{color:#ffd27a;font-family:"Gothic A1",sans-serif}}
+@media(min-width:641px){.mx{display:none}}
+@media(prefers-reduced-motion:reduce){.fill{transition:none}}
+</style>
+</head>
+<body>
+<header class="band top">
+<div class="hero">
+<div>
+<h1>아웃랜더스 과금 계산기</h1>
+<div class="big" id="hTot">₩0</div>
+<div class="sub">이번 계획으로 한정 뽑기 <b id="hPull">0회</b> · 1회당 평균 <b id="hAvg">–</b></div>
+</div>
+<div class="gauge">
+<div class="lab"><span>필요 아카하네 코인</span><span id="gTxt">0 / 0</span></div>
+<div class="track"><div class="fill" id="gFill"></div></div>
+<div class="kv">
+<div>한정 모집권<b id="kLim">0</b></div>
+<div>루타·코인<b id="kRuta">0</b></div>
+<div>상시 모집권<b id="kStd">0</b></div>
+<div>제니<b id="kZen">0</b></div>
+</div>
+</div>
+</div>
+</header>
+<div class="mob"><span>합계 <b id="mTot">₩0</b></span><span>한정 <b id="mPull">0회</b></span></div>
+
+<main class="band">
+<div class="wrap">
+<section>
+<div class="bar-tools">
+<button class="btn" id="pPass">월정액 + 패스</button>
+<button class="btn" id="pWeek">월정액 + 쾅쾅 화로 + 주간 가성비 4종 × 4</button>
+<button class="btn" id="pReset">모두 0회로</button>
+<button class="btn add" id="pSave" type="button">+ 지금 구성 저장</button>
+</div>
+<form id="pForm" class="pform" hidden><input id="pName" maxlength="20" placeholder="프리셋 이름 (예: 이번 달 계획)" aria-label="프리셋 이름"><button class="btn add" type="submit">저장</button><button class="btn" type="button" id="pCancel">취소</button></form>
+<div class="bar-tools" id="pList"></div>
+<h2>전체 효율표</h2>
+<p class="note">한정 1회당 가격이 싼 순서예요. 효율은 6,480 결제 후 직접 교환(코인 150개 = 1회) 대비 배수예요. 루타 코인은 150개 = 1회로 환산했어요.</p>
+<div class="flt" id="flt"></div>
+<div class="list" id="list"></div>
+
+<h2>상시 뽑기 전용</h2>
+<div class="list" id="list2"></div>
+
+<h2>배틀 패스 (하나만)</h2>
+<div class="seg" id="bp"></div>
+</section>
+
+<aside class="rc">
+<h2>구매 영수증</h2>
+<div class="ln tot"><span>총 실 결제 금액</span><b id="rTot">₩0</b></div>
+<div class="ln"><span>현금 결제</span><b id="rCash">₩0</b></div>
+<div class="ln"><span>코인으로 사는 팩</span><b id="rCoinW">₩0</b></div>
+<div class="ln"><span>필요 아카하네 코인</span><b id="rCoin">0</b></div>
+<div class="field"><label for="own">보유 아카하네 코인</label><input type="number" id="own" min="0" step="10"></div>
+<div class="ln"><span>구매 후 남는 코인</span><b id="rLeft">0</b></div>
+<div class="ln"><span>한정 뽑기 환산</span><b id="rPull">0회</b></div>
+<h2 style="margin-top:18px">기준값</h2>
+<div class="field"><label for="p6480">6,480 상품 가격 (원)</label><input type="number" id="p6480" step="100"></div>
+<div class="field"><label for="c6480">6,480 상품 받는 코인</label><input type="number" id="c6480" step="10"></div>
+<p class="note" style="margin-top:6px">코인 1개 = <b id="rate">–</b> · 직접 교환 1회 = <b id="direct">–</b></p>
+</aside>
+</div>
+</main>
+
+<section class="band" style="padding-top:0">
+<div class="pick">
+<div class="card">
+<h2>픽업 돌파 계산기</h2>
+<p class="note">노란 코인처럼 위 계획을 포함할지 고를 수 있어요.</p>
+<div class="field"><label for="iLim">보유 한정 모집권</label><input type="number" id="iLim" min="0"></div>
+<div class="field"><label for="iRuta">보유 루타 코인</label><input type="number" id="iRuta" min="0" step="10"></div>
+<div class="field"><label for="iInc">위 구매 계획도 포함</label><input type="checkbox" id="iInc"></div>
+<div class="field"><label for="iPity">현재 SSR 천장 카운트</label><input type="number" id="iPity" min="0" max="89"></div>
+<div class="field"><label for="iG">픽업 확정 상태 (직전 SSR 픽뚫)</label><input type="checkbox" id="iG"></div>
+<div class="field"><label for="iBan">이번 배너에서 뽑은 횟수</label><input type="number" id="iBan" min="0"></div>
+<div class="field"><label for="iUsed">120회 확정 이미 사용</label><input type="checkbox" id="iUsed"></div>
+<div class="field"><label for="iOwn">현재 보유 픽업 장수 <small style="color:var(--mut)">(0 = 미보유, 1 = 명함)</small></label><input type="number" id="iOwn" min="0"></div>
+<div class="field"><label for="iTgt">목표 돌파 <small style="color:var(--mut)">(0 = 명함)</small></label><input type="number" id="iTgt" min="0"></div>
+<div class="field"><label for="iAvg">SSR 1개당 평균 횟수 (추정)</label><input type="number" id="iAvg" min="1" step="0.5"></div>
+</div>
+<div class="card">
+<h2>결과</h2>
+<div class="res">
+<div class="hl"><span>총 뽑기 가능</span><b id="oN">0회</b></div>
+<div><span>평균 기대 장수</span><b id="oE">0장</b></div>
+<div><span>예상 돌파 (평균)</span><b id="oB">–</b></div>
+<div><span>확정 돌파 (최악 운)</span><b id="oBw">–</b></div>
+</div>
+<div class="ln"><span>첫 픽업까지 최악 횟수</span><b id="oF">0회</b></div>
+<div class="ln"><span>목표까지 추가 픽업</span><b id="oNeed">0장</b></div>
+<div class="ln"><span>필요 모집권 (평균)</span><b id="oRa">0회</b></div>
+<div class="ln"><span>필요 모집권 (최악 운)</span><b id="oRw">0회</b></div>
+<div class="ln"><span>부족 (평균)</span><b id="oSa">0회</b></div>
+<div class="ln"><span>부족 (최악 운)</span><b id="oSw">0회</b></div>
+<div class="ln tot"><span>부족분 금액 (평균 / 최악)</span><b id="oW">₩0</b></div>
+<p class="note" style="margin-top:10px">부족분 금액은 6,480 결제 후 직접 교환 기준이에요. 효율 좋은 팩을 쓰면 더 싸져요.</p>
+</div>
+</div>
+</section>
+
+<footer class="band foot" style="padding-top:0">SSR 0.6%, 90회 안에 SSR 확정, SSR의 50%가 픽업, 놓치면 다음 SSR은 픽업 확정, 배너당 1회 120회 픽업 확정. 돌파 = 보유 장수 − 1. 월정액·배틀 패스 원화 가격 일부와 월간 팩 구성은 추정·공략 사이트 기준이라 게임에서 확인하세요. 첫 결제 2배 보너스는 빼고 계산했어요. 입력값은 이 브라우저에만 저장돼요.</footer>
+
+<script>
+{
+const P=[
+["월정액 플랜","월정액",0,7100,0,3300,5,0,"코인 300 + 매일 루타 100×30일(출석) · 상시권 5 · 첫 구매 SSR 모험가 택 1",1],
+["주간 셀렉트","주간",60,0,1,0,0,6800,"제니 6,800",4],
+["한정 주간 모집 세일","주간",300,0,5,0,0,18800,"제니 1.88만",4],
+["주간 성장 지원","주간",680,0,5,300,5,0,"상시권 5",4],
+["녹풍 모집(소)","녹풍",980,0,10,0,0,88000,"초록 이슬 500 · 맑은 호박 43 · 명석 600",1],
+["주간 모집 셀렉트","주간",1280,0,10,450,0,28800,"제니 2.88만",4],
+["녹풍 모집(대)","녹풍",5980,0,55,0,0,228000,"공명의 결정 1 · 빛나는 붓 8 · 명석 1200",1],
+["주간 모집 팩","주간",3280,0,30,0,10,88000,"상시권 10 · 초록 포션 80 · 푸른 깃털 16",4],
+["월간 셀렉트","월간",1980,0,15,300,10,0,"상시권 10",1],
+["녹풍 모집(중)","녹풍",2980,0,25,0,0,88000,"공명의 결정 1 · 빛나는 붓 4 · 명석 900",1],
+["월간 모집 셀렉트","월간",6480,0,50,0,0,198000,"공명의 조각 5 · 거친 물감 120 · 맑은 붓 24",1],
+["월간 모집 세일","월간",3280,0,25,0,0,88000,"공명의 조각 5 · 거친 물감 120 · 명석 900",1],
+["모험가 모집-셀렉션","시즌",0,28000,12,0,10,28800,"상시권 10",2],
+["녹풍 육성 팩","녹풍",1980,0,0,2000,0,288000,"프라임 베리 100 · 말 사료 42 · 명석 1200",1],
+["월간 육성 세일","월간",3280,0,0,3280,0,88000,"거친 물감 160 · 맑은 붓 32",1],
+["6,480 결제 → 코인 교환","결제",0,"R6480",0,"C6480",0,0,"기준 상품",9],
+["사브리 추천","시즌",0,141000,50,0,15,198000,"상시권 15",1],
+["3,280 결제 → 코인 교환","결제",0,75000,0,3880,0,0,"",9],
+["1,280 결제 → 코인 교환","결제",0,28000,0,1440,0,0,"",9],
+["1,980 결제 → 코인 교환","결제",0,44000,0,2260,0,0,"",9],
+["모험가 모집-프리미엄","시즌",0,75000,25,0,10,88000,"상시권 10",2],
+["300 결제 → 코인 교환","결제",0,7100,0,330,0,0,"",9],
+["980 결제 → 코인 교환","결제",0,22000,0,980,0,0,"첫 결제 이후 보너스 미반영",9],
+["60 결제 → 코인 교환","결제",0,1400,0,60,0,0,"첫 결제 이후 보너스 미반영",9]
+];
+const S=[["주간 모집 세일 (300코인)",300,0,10,8800,"주 2회",8],["모집-셀렉션 (₩28,000)",0,28000,20,28800,"시즌 2회",2]];
+const B=[["선택 안 함",0,""],["펑펑 화로",14500,"SSR 동반자 코지로 + 선택 1 · 육성 소재 · 레벨을 올려야 받음"],["쾅쾅 화로",28000,"펑펑 화로 보상 전부 + 코지로 추가 + 레벨 +10으로 시작 · 직접 구매 가격"],["쾅쾅 화로 (업그레이드)",32000,"펑펑 화로에서 쾅쾅 화로로 업그레이드 · 14,500 + 17,500 = 32,000원 · 직접 구매보다 4,000원 더 냄"]];
+const BP={lim:5,ruta:680,zen:4900000};
+const def={q:{"월정액 플랜":1,"주간 셀렉트":4,"한정 주간 모집 세일":4,"주간 성장 지원":4,"녹풍 모집(소)":1,"주간 모집 셀렉트":4},s:{},bp:2,own:8520,p6480:141000,c6480:8080,iLim:20,iRuta:8500,iInc:false,iPity:0,iG:false,iBan:0,iUsed:false,iOwn:0,iTgt:0,iAvg:62.5,view:"*",presets:[]};
+let st;
+try{st=Object.assign(structuredClone(def),JSON.parse(localStorage.getItem("mhoCalc")||"{}"))}catch(e){st=structuredClone(def)}
+const save=()=>{try{localStorage.setItem("mhoCalc",JSON.stringify(st))}catch(e){}};
+const $=id=>document.getElementById(id);
+const W=n=>"₩"+Math.round(n).toLocaleString("ko-KR");
+const N=(n,d=0)=>Number(n).toLocaleString("ko-KR",{maximumFractionDigits:d,minimumFractionDigits:d});
+const esc=t=>String(t).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const rate=()=>st.p6480/Math.max(1,st.c6480);
+const item=p=>{const cash=p[3]==="R6480"?st.p6480:p[3],ruta=p[5]==="C6480"?st.c6480:p[5];const pay=p[2]?p[2]*rate():cash;const pulls=p[4]+ruta/150;return{name:p[0],type:p[1],coin:p[2],cash:p[2]?0:cash,lim:p[4],ruta,std:p[6],zen:p[7],note:p[8],max:p[9],pay,pulls,per:pulls?pay/pulls:Infinity}};
+function rows(){
+const all=P.map(item).sort((a,b)=>a.per-b.per),direct=150*rate();
+all.forEach((it,i)=>it.rank=i+1);
+const types=[...new Set(P.map(p=>p[1]))];
+const v=types.includes(st.view)?st.view:"*";
+$("flt").innerHTML=[["*","전체",all.length],...types.map(t=>[t,t,all.filter(x=>x.type===t).length])].map(([k,l,c])=>`<button type="button" data-t="${esc(k)}" aria-pressed="${v===k}">${esc(l)} <span class="cnt">${c}</span></button>`).join("");
+const its=v==="*"?all:all.filter(it=>it.type===v);
+$("list").innerHTML='<div class="row head"><span>순위</span><span>상품</span><span class="num">실 결제</span><span class="num">한정 뽑기</span><span class="num">1회당</span><span class="num">구매 횟수</span></div>'+(its.length?"":'<div class="empty">이 종류에는 상품이 없어요.</div>')+its.map(it=>{const q=st.q[it.name]||0,eff=direct/it.per;return `<div class="row${q?" on":""}${it.rank<=3?" best":""}${eff<1?" weak":""}"><span class="rk">${it.rank}</span><span class="nm"><b>${esc(it.name)}</b><span class="tag">${esc(it.type)}</span>${it.note?`<small>${esc(it.note)}</small>`:""}<span class="mx">${W(it.pay)} · ${N(it.pulls,1)}회 · 1회 ${W(it.per)} · ${N(eff,2)}배</span></span><span class="num c1">${W(it.pay)}${it.coin?`<small style="display:block;color:var(--mut);font-size:12px">${N(it.coin)}코인</small>`:""}</span><span class="num c2">${N(it.pulls,1)}회</span><span class="num c3"><span class="pp">${W(it.per)}</span><span style="display:block;font-size:12px;color:var(--mut)">${N(eff,2)}배</span><div class="eff"><i style="width:${Math.min(100,eff/3*100)}%"></i></div></span><span class="st" data-k="q" data-n="${esc(it.name)}" data-m="${it.max}"><button aria-label="줄이기" ${q<=0?"disabled":""}>−</button><span>${q}</span><button aria-label="늘리기" ${q>=it.max?"disabled":""}>+</button></span></div>`}).join("");
+$("list2").innerHTML=S.map(s=>{const pay=s[1]?s[1]*rate():s[2],q=st.s[s[0]]||0;return `<div class="row${q?" on":""}"><span class="rk">·</span><span class="nm"><b>${esc(s[0])}</b><small>상시권 ${s[3]} · 제니 ${N(s[4])} · ${esc(s[5])}</small><span class="mx">${W(pay)} · 상시 1회 ${W(pay/s[3])}</span></span><span class="num c1">${W(pay)}</span><span class="num c2">상시 ${s[3]}회</span><span class="num c3"><span class="pp">${W(pay/s[3])}</span></span><span class="st" data-k="s" data-n="${esc(s[0])}" data-m="${s[6]}"><button aria-label="줄이기" ${q<=0?"disabled":""}>−</button><span>${q}</span><button aria-label="늘리기" ${q>=s[6]?"disabled":""}>+</button></span></div>`}).join("");
+$("bp").innerHTML=B.map((b,i)=>`<label><input type="radio" name="bp" value="${i}" ${st.bp===i?"checked":""}><span><b>${esc(b[0])}</b>${b[1]?`<small class="bpd">${W(b[1])} · 한정 ${N(BP.lim+BP.ruta/150,1)}회 · 1회 ${W(b[1]/(BP.lim+BP.ruta/150))} · 제니 ${N(BP.zen)}</small><small class="bpd">${esc(b[2])}</small>`:""}</span></label>`).join("");
+calc();
+}
+function calc(){
+const r=rate();let tot=0,cash=0,coin=0,lim=0,ruta=0,std=0,zen=0;
+P.map(item).forEach(it=>{const q=st.q[it.name]||0;if(!q)return;tot+=q*it.pay;cash+=q*it.cash;coin+=q*it.coin;lim+=q*it.lim;ruta+=q*it.ruta;std+=q*it.std;zen+=q*it.zen});
+S.forEach(s=>{const q=st.s[s[0]]||0;if(!q)return;tot+=q*(s[1]?s[1]*r:s[2]);cash+=q*s[2];coin+=q*s[1];std+=q*s[3];zen+=q*s[4]});
+const b=B[st.bp]||B[0];if(b[1]){tot+=b[1];cash+=b[1];lim+=BP.lim;ruta+=BP.ruta;zen+=BP.zen}
+const pulls=lim+ruta/150,left=st.own-coin;
+$("hTot").textContent=W(tot);$("hPull").textContent=N(pulls,1)+"회";$("hAvg").textContent=pulls?W(tot/pulls):"–";
+$("mTot").textContent=W(tot);$("mPull").textContent=N(pulls,1)+"회";
+$("gTxt").textContent=N(coin)+" / 보유 "+N(st.own);const f=$("gFill");f.style.width=Math.min(100,st.own?coin/st.own*100:(coin?100:0))+"%";f.classList.toggle("over",coin>st.own);
+$("kLim").textContent=N(lim);$("kRuta").textContent=N(ruta);$("kStd").textContent=N(std);$("kZen").textContent=N(zen);
+$("rTot").textContent=W(tot);$("rCash").textContent=W(cash);$("rCoinW").textContent=W(tot-cash);$("rCoin").textContent=N(coin);
+$("rLeft").textContent=N(left);$("rLeft").className=left<0?"neg":"";$("rPull").textContent=N(pulls,1)+"회";
+$("rate").textContent="₩"+N(r,2);$("direct").textContent=W(150*r);
+pick(lim,ruta,150*r);save();if(typeof renderP==="function")renderP();
+}
+function pick(lim,ruta,direct){
+const h=90,cap=120,avg=Math.max(1,+st.iAvg||62.5),per=avg*1.5,c=+st.iPity||0;
+const n=(+st.iLim||0)+(st.iInc?lim:0)+Math.floor(((+st.iRuta||0)+(st.iInc?ruta:0))/150);
+const first=st.iG?h-c:(st.iUsed?2*h-c:Math.min(2*h-c,cap-(+st.iBan||0)));
+const sure=n>=first?1+Math.floor((n-first)/(2*h)):0;
+const exp=Math.max(sure,(n+c+(st.iG?per-avg:0))/per);
+const own=+st.iOwn||0,brk=k=>own+k===0?"미획득":(own+k-1)+"돌파";
+const need=Math.max(0,(+st.iTgt||0)+1-own);
+const ra=need?Math.max(0,Math.ceil(need*per-c-(st.iG?per-avg:0))):0,rw=need?first+(need-1)*2*h:0;
+const sa=Math.max(0,ra-n),sw=Math.max(0,rw-n);
+$("oN").textContent=N(n)+"회";$("oE").textContent=N(exp,2)+"장";$("oB").textContent=brk(Math.floor(exp));$("oBw").textContent=brk(sure);
+$("oF").textContent=N(first)+"회";$("oNeed").textContent=need+"장";$("oRa").textContent=N(ra)+"회";$("oRw").textContent=N(rw)+"회";
+$("oSa").textContent=N(sa)+"회";$("oSw").textContent=N(sw)+"회";$("oW").textContent=W(sa*direct)+" / "+W(sw*direct);
+}
+document.addEventListener("click",e=>{const btn=e.target.closest(".st button");if(!btn)return;const box=btn.parentElement,k=box.dataset.k,n=box.dataset.n,m=+box.dataset.m,d=btn.textContent==="+"?1:-1;const v=Math.max(0,Math.min(m,(st[k][n]||0)+d));st[k][n]=v;rows()});
+$("flt").addEventListener("click",e=>{const b=e.target.closest("[data-t]");if(!b)return;st.view=b.dataset.t;rows()});
+$("bp").addEventListener("change",e=>{st.bp=+e.target.value;calc()});
+["own","p6480","c6480","iLim","iRuta","iPity","iBan","iOwn","iTgt","iAvg"].forEach(id=>{const el=$(id);el.value=st[id];el.addEventListener("input",()=>{st[id]=+el.value||0;id==="p6480"||id==="c6480"?rows():calc()})});
+["iInc","iG","iUsed"].forEach(id=>{const el=$(id);el.checked=!!st[id];el.addEventListener("change",()=>{st[id]=el.checked;calc()})});
+$("pPass").onclick=()=>{st.q={"월정액 플랜":1};st.s={};st.bp=1;rows()};
+$("pWeek").onclick=()=>{st.q={"월정액 플랜":1,"주간 셀렉트":4,"한정 주간 모집 세일":4,"주간 성장 지원":4,"주간 모집 셀렉트":4};st.s={};st.bp=2;rows()};
+const totOf=p=>{let t=0,l=0,r=0;P.map(item).forEach(it=>{const q=p.q[it.name]||0;t+=q*it.pay;l+=q*it.lim;r+=q*it.ruta});S.forEach(x=>{const q=(p.s||{})[x[0]]||0;t+=q*(x[1]?x[1]*rate():x[2])});const b=B[p.bp]||B[0];if(b[1]){t+=b[1];l+=BP.lim;r+=BP.ruta}return W(t)+" · 한정 "+N(l+r/150,1)+"회"};
+const renderP=()=>{$("pList").innerHTML=(st.presets||[]).map((p,i)=>`<span class="pre"><button type="button" class="ap" data-a="${i}">${esc(p.name)}<small>${totOf(p)}</small></button><button type="button" class="px" data-d="${i}" aria-label="${esc(p.name)} 삭제">×</button></span>`).join("")};
+$("pSave").onclick=()=>{$("pForm").hidden=false;$("pName").value="";$("pName").focus()};
+$("pCancel").onclick=()=>{$("pForm").hidden=true};
+$("pForm").onsubmit=e=>{e.preventDefault();const name=$("pName").value.trim()||("프리셋 "+((st.presets||[]).length+1));st.presets=(st.presets||[]).filter(p=>p.name!==name);st.presets.push({name,q:{...st.q},s:{...st.s},bp:st.bp});$("pForm").hidden=true;save();renderP()};
+$("pList").addEventListener("click",e=>{const a=e.target.closest("[data-a]"),d=e.target.closest("[data-d]");if(a){const p=st.presets[+a.dataset.a];st.q={...p.q};st.s={...(p.s||{})};st.bp=p.bp||0;rows()}else if(d){if(!d.classList.contains("arm")){d.classList.add("arm");d.textContent="삭제?";setTimeout(()=>{if(d.isConnected){d.classList.remove("arm");d.textContent="×"}},2500)}else{st.presets.splice(+d.dataset.d,1);save();renderP()}}});
+$("pReset").onclick=()=>{st.q={};st.s={};st.bp=0;rows()};
+rows();
+}
+</script>
+</body>
+</html>
