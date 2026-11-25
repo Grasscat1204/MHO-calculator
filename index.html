@@ -154,6 +154,44 @@ h2:first-child{margin-top:0}
 .wt.sk td:nth-child(2){min-width:8em;word-break:keep-all}
 @media(max-width:640px){.wt.sk th:nth-child(4),.wt.sk td:nth-child(4){display:none}.wt.sk input[type=number]{width:4.2em}.wt.sk td,.wt.sk th{padding-left:4px;padding-right:4px}.wt.sk td:nth-child(2){min-width:6.5em}}
 .btn.whale{border-color:#2563eb;color:#1d4ed8;font-weight:700}
+.pick[hidden],.field[hidden],.btn[hidden]{display:none!important}
+.btn:disabled{opacity:.4;cursor:default}
+.wsub{margin-bottom:0;padding-bottom:0}
+.wstage{position:relative;display:grid;place-items:center;min-height:200px;margin:14px 0;border-radius:16px;background:radial-gradient(circle at 50% 40%,#3b2a1a,#140d08);color:#fff;overflow:hidden;text-align:center;padding:16px}
+.wsph{color:#d6c3a5;font-size:15px}
+.wsorb{width:84px;height:84px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff7d6,#eab308 45%,#92400e);box-shadow:0 0 30px #eab308;animation:wsShake .7s ease-in-out}
+@keyframes wsShake{0%,100%{transform:scale(.9) rotate(0)}20%{transform:scale(1) rotate(-12deg)}40%{transform:scale(1.05) rotate(12deg)}60%{transform:scale(1.1) rotate(-8deg)}80%{transform:scale(1.15) rotate(6deg)}}
+.wscard{animation:wsPop .45s cubic-bezier(.2,1.6,.4,1)}
+.wscard b{display:block;font:800 clamp(22px,4vw,30px)/1.25 "Gothic A1",sans-serif;margin:6px 0}
+.wscard small{color:#e7d9c2;font-size:13px}
+.wscard .rr{display:inline-block;padding:2px 10px;border-radius:12px;font-size:12px;font-weight:700;background:#57534e}
+.wstage.r3{background:radial-gradient(circle at 50% 40%,#fde68a,#b45309 55%,#451a03)}
+.wstage.r3 .wscard b{color:#fff;text-shadow:0 0 18px #fde047}
+.wstage.r3 .rr{background:#facc15;color:#422006}
+.wstage.r2{background:radial-gradient(circle at 50% 40%,#7c3aed,#2e1065)}
+.wstage.r2 .rr{background:#a78bfa;color:#2e1065}
+.wstage.r1{background:radial-gradient(circle at 50% 40%,#2563eb,#0c1e4a)}
+.wstage.r1 .rr{background:#93c5fd;color:#0c1e4a}
+@keyframes wsPop{0%{transform:scale(.3);opacity:0}100%{transform:scale(1);opacity:1}}
+.wsbtns{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.wsgo{flex:1 1 100%;min-height:52px;font-size:17px}
+.wsl{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 10px;align-items:center;padding:8px 10px;border-bottom:1px solid var(--line);font-size:14px}
+.wsl small{color:var(--mut)}
+.wsl i{grid-column:1/-1;height:5px;border-radius:3px;background:var(--line);overflow:hidden}
+.wsl i em{display:block;height:100%;background:var(--red)}
+.wsl.r3 b{color:#b45309}.wsl.r2 b{color:#7c3aed}.wsl.r1 b{color:#2563eb}
+.pkstage{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;min-height:170px;margin:14px 0;padding:12px;border-radius:16px;background:radial-gradient(circle at 50% 40%,#3b2a1a,#140d08);align-content:center}
+.pkstage .wsph{grid-column:1/-1;text-align:center}
+.pkstage.gold{background:radial-gradient(circle at 50% 40%,#fde68a,#b45309 55%,#451a03)}
+.pkc{display:grid;place-items:center;min-height:72px;padding:6px 2px;border-radius:10px;background:#44403c;color:#e7e5e4;font-size:12px;line-height:1.25;text-align:center;word-break:keep-all;opacity:0;animation:wsPop .35s cubic-bezier(.2,1.6,.4,1) forwards}
+.pkc b{display:block;font-size:14px;margin:1px 0}
+.pkc i{display:block;font-style:normal;font-size:10px;opacity:.85}
+.pkc small{display:block;font-size:10px;opacity:.8}
+.pkc.sr{background:#6d28d9;color:#fff}
+.pkc.ssr{background:#a16207;color:#fff;box-shadow:0 0 0 2px #fde047}
+.pkc.pu{background:linear-gradient(135deg,#fde047,#f59e0b);color:#451a03;box-shadow:0 0 18px #fde047}
+.pkstage.one{grid-template-columns:minmax(0,160px);justify-content:center}
+.pkgo{flex:1 1 40%;min-height:52px;font-size:17px}
 .cumw{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:24px;max-width:1240px;margin:0 auto}
 @media(max-width:900px){.cumw{grid-template-columns:minmax(0,1fr)}}
 .ctrack{background:var(--line);height:12px;margin:4px 0 12px}.ctrack .fill{background:var(--red)}
@@ -268,7 +306,8 @@ h2:first-child{margin-top:0}
 </main>
 
 <section class="band" id="tabPick" role="tabpanel" hidden>
-<div class="pick">
+<div class="pick wsub"><div class="flt" id="pkSub" style="grid-column:1/-1;margin:0"><button type="button" data-ps="calc" aria-pressed="true">계산기</button><button type="button" data-ps="sim" aria-pressed="false">시뮬레이션</button></div></div>
+<div class="pick" id="pkCalc">
 <div class="card">
 <h2>픽업 돌파 계산기</h2>
 <p class="note">"구매 플랜 포함"을 켜면 구매 플랜 탭에서 고른 상품의 모집권도 더해서 계산해요.</p>
@@ -299,6 +338,37 @@ h2:first-child{margin-top:0}
 <div class="ln"><span>부족 (최악 운)</span><b id="oSw">0회</b></div>
 <div class="ln tot"><span>부족분 금액 (평균 / 최악)</span><b id="oW">₩0</b></div>
 <p class="note" style="margin-top:10px">부족분 금액은 6,480 결제 후 직접 교환 기준이에요. 효율 좋은 팩을 쓰면 더 싸져요.</p>
+</div>
+</div>
+<div class="pick" id="pkSim" hidden>
+<div class="card">
+<h2>특별 모집 시뮬레이션 · 미도리</h2>
+<p class="note">재미로 직접 뽑아 보는 시뮬레이션이에요. 계산기 탭에 넣은 천장 카운트·픽업 확정·배너 뽑은 횟수·보유 장수에서 시작해요. 모집권은 계산기와 따로 돌아가고, 기본은 무제한이에요.</p>
+<label class="fbx"><input type="checkbox" id="pkInf"><span><b>모집권 무제한</b> <small>끄면 아래 보유 모집권만큼만 뽑을 수 있어요</small></span></label>
+<div class="field" id="pkTkF"><label for="pkTk"><svg class="ic" aria-hidden="true"><use href="#i-lim"/></svg>시뮬레이션 보유 모집권 <small style="color:var(--mut)">(남은 <b id="pkLeft">0</b>장)</small></label><input type="number" id="pkTk" min="0" step="10"></div>
+<div class="pkstage" id="pkStage"><div class="wsph">모집 버튼을 눌러 보세요</div></div>
+<div class="wsbtns"><button type="button" class="btn add pkgo" id="pk1">1회 모집</button><button type="button" class="btn add pkgo" id="pk10">10회 모집</button><button type="button" class="btn" id="pkUntil">픽업 나올 때까지</button><button type="button" class="btn" id="pkMine">남은 모집권 전부</button><button type="button" class="btn" id="pkReset">처음부터</button></div>
+<div class="res">
+<div class="hl"><span>뽑은 횟수</span><b id="pkN">0회</b></div>
+<div><span>원화 환산</span><b id="pkWon">₩0</b></div>
+<div><span>루타 코인 환산</span><b id="pkRuta">0</b></div>
+<div class="hl"><span>미도리</span><b id="pkPu">0장</b></div>
+<div><span>현재 상태</span><b id="pkBrk">–</b></div>
+<div><span>픽뚫 SSR</span><b id="pkOff">0장</b></div>
+</div>
+<div class="ln"><span>SSR 천장 카운트</span><b id="pkPity">0 / 90</b></div>
+<div class="ln"><span>다음 SSR 픽업 확정</span><b id="pkG">아니요</b></div>
+<div class="ln"><span>120회 픽업 확정까지</span><b id="pk120">–</b></div>
+<div class="ln"><span>SR 이상 확정까지</span><b id="pkSr">–</b></div>
+</div>
+<div class="card">
+<h2>SSR 기록</h2>
+<div class="list" id="pkLog"><div class="empty">아직 없어요.</div></div>
+<h2 style="font-size:18px;margin-top:18px">지금까지 나온 등급</h2>
+<div class="list" id="pkCnt"></div>
+<h2 style="font-size:18px;margin-top:18px">획득 도감</h2>
+<div class="list" id="pkGot"><div class="empty">아직 없어요.</div></div>
+<p class="note" style="margin-top:10px">확률은 SSR 0.6%(픽업 0.3%), SR 9.4%(모험가 7.05% · 동반자 2.35%), R 90%예요. 상시 SSR은 엔쇼우·케레스·아케니아·로드·페페·루카, SR 모험가는 브릭스·류노스케·라야·폴리오·매들린이고, SR·R 동반자는 공략 사이트 목록에서 균등하게 뽑아요(R 칸은 R 동반자로 보여 줘요). 10회 안에 SR 이상, 90회 안에 SSR 확정이고, SSR이 픽업이 아니면 다음 SSR은 픽업 확정이에요. 배너당 한 번 120회 안에 픽업 확정이 있어요. 원화는 1회 = 루타 150개 = 직접 교환 가격으로 바꿨어요.</p>
 </div>
 </div>
 </section>
@@ -333,7 +403,8 @@ h2:first-child{margin-top:0}
 </div>
 </section>
 <section class="band" id="tabWi" role="tabpanel" hidden>
-<div class="pick">
+<div class="pick wsub"><div class="flt" id="wiSub" style="grid-column:1/-1;margin:0"><button type="button" data-ws="calc" aria-pressed="true">계산</button><button type="button" data-ws="sim" aria-pressed="false">시뮬레이션</button></div></div>
+<div class="pick" id="wiCalc">
 <div class="card">
 <h2>기원 · 철벽의 패자</h2>
 <p class="note">의상이 주요 상품인 박스형 뽑기예요. 보상 13개가 겹치지 않고 하나씩 빠지며, 13회를 다 뽑으면 전부 얻어요. 1회차는 무료이고, 그다음부터는 일반 기원의 종(1개 = 아카하네 코인 10개)이 회차마다 더 들어요. 모험가는 나오지 않아요.</p>
@@ -356,6 +427,28 @@ h2:first-child{margin-top:0}
 <div class="ln"><span>모집권 1장당 가격 (평균)</span><b id="wPer">–</b></div>
 <div class="ln"><span>13회 전부 뽑기</span><b>4,740코인 · 특별 모집권 23장</b></div>
 <p class="note" style="margin-top:10px">박스 전체로 보면 특별 모집권 1장에 약 <b id="wFull">–</b>이라 직접 교환(<b id="wDir">–</b>)보다 비싸요. 의상이 갖고 싶을 때만 뽑고, 무료 1회는 꼭 챙기세요. 확률은 공략 사이트(2026년 11월 2일 기준) 수치로 시뮬레이션한 평균이고, 기원이 바뀌면 보상과 비용도 달라질 수 있어요.</p>
+</div>
+</div>
+<div class="pick" id="wiSim" hidden>
+<div class="card">
+<h2>기원 시뮬레이션 · 철벽의 패자</h2>
+<p class="note">직접 뽑는 것처럼 해 보는 재미용 시뮬레이션이에요. 실제 코인은 쓰지 않아요. 확률은 공략 사이트 수치를 따랐어요.</p>
+<div class="wstage" id="wsStage"><div class="wsph">기원 버튼을 눌러 보세요</div></div>
+<div class="wsbtns"><button type="button" class="btn add wsgo" id="wsGo">기원하기</button><button type="button" class="btn" id="wsAll">남은 것 전부</button><button type="button" class="btn" id="wsReset">처음부터</button></div>
+<div class="res">
+<div class="hl"><span>진행</span><b id="wsN">0 / 13</b></div>
+<div><span><svg class="ic" aria-hidden="true"><use href="#i-aka"/></svg>쓴 코인</span><b id="wsCoin">0</b></div>
+<div><span>원화 환산</span><b id="wsWon">₩0</b></div>
+<div class="hl"><span><svg class="ic" aria-hidden="true"><use href="#i-lim"/></svg>특별 모집권</span><b id="wsFc">0장</b></div>
+<div><span>아케니아 의상</span><b id="wsArk">아직</b></div>
+<div><span>1장당 가격</span><b id="wsPer">–</b></div>
+</div>
+</div>
+<div class="card">
+<h2>남은 보상 · 다음 확률</h2>
+<div class="list" id="wsLeft"></div>
+<h2 style="font-size:18px;margin-top:18px">획득 기록</h2>
+<div class="list" id="wsLog"><div class="empty">아직 없어요.</div></div>
 </div>
 </div>
 </section>
@@ -474,12 +567,12 @@ const SKN=[["흑영 도사","세트 · 500점","첫 결제 보수"],["철벽의 
 const S=[["주간 모집 세일 (300코인)",300,0,10,8800,"주 2회",8],["모집-셀렉션 (₩28,000)",0,28000,20,28800,"시즌 2회",2]];
 const B=[["선택 안 함",0,""],["펑펑 화로",14500,"SSR 동반자 코지로 + 선택 1 · 육성 소재 · 레벨을 올려야 받음"],["쾅쾅 화로",28000,"펑펑 화로 보상 전부 + 코지로 추가 + 레벨 +10으로 시작 · 직접 구매 가격"],["쾅쾅 화로 (업그레이드)",32000,"펑펑 화로에서 쾅쾅 화로로 업그레이드 · 14,500 + 17,500 = 32,000원 · 직접 구매보다 4,000원 더 냄"]];
 const BP={lim:5,ruta:680,zen:4900000};
-const def={q:{"월정액 플랜":1},s:{},bp:1,own:0,p6480:141000,c6480:8080,iLim:0,iRuta:0,z:{},iInc:false,iPity:0,iG:false,iBan:0,iUsed:false,iOwn:0,iTgt:0,iAvg:62.5,view:"*",tab:"plan",first:false,eN:0,eDays:30,wN:1,eInc:true,wInc:true,cNow:0,cInc:true,eCost:[50,100,200,200,300],presets:[],pDef:true,nb:{},cpInc:false,cpRank:1,sk:{},skPt:{},skView:"won",mig:3};
+const def={q:{"월정액 플랜":1},s:{},bp:1,own:0,p6480:141000,c6480:8080,iLim:0,iRuta:0,z:{},iInc:false,iPity:0,iG:false,iBan:0,iUsed:false,iOwn:0,iTgt:0,iAvg:62.5,view:"*",tab:"plan",first:false,eN:0,eDays:30,wN:1,eInc:true,wInc:true,cNow:0,cInc:true,eCost:[50,100,200,200,300],presets:[],pDef:true,nb:{},cpInc:false,cpRank:1,sk:{},skPt:{},skView:"won",mig:3,pkInf:true,pkTk:0};
 let st;
 try{let v=localStorage.getItem("mhoCalc2");if(v)st=Object.assign(structuredClone(def),JSON.parse(v));else{st=structuredClone(def);const o=JSON.parse(localStorage.getItem("mhoCalc")||"{}");if(o.presets)st.presets=o.presets}}catch(e){st=structuredClone(def)}
 if((st.mig|0)<2){st.eInc=true;st.wInc=true;st.skView="won"}
 if((st.mig|0)<3){st.cInc=true;st.mig=3}
-let lastC={coin:0,own:0};
+let lastC={coin:0,own:0},pkMax=0;
 const save=()=>{try{localStorage.setItem("mhoCalc2",JSON.stringify(st))}catch(e){}};
 const $=id=>document.getElementById(id);
 const W=n=>"₩"+Math.round(n).toLocaleString("ko-KR");
@@ -537,7 +630,7 @@ const exp=Math.max(sure,(n+c+(st.iG?per-avg:0))/per);
 const own=+st.iOwn||0,brk=k=>own+k===0?"미획득":(own+k-1)+"돌파";
 const need=Math.max(0,(+st.iTgt||0)+1-own);
 const ra=need?Math.max(0,Math.ceil(need*per-c-(st.iG?per-avg:0))):0,rw=need?first+(need-1)*2*h:0;
-const sa=Math.max(0,ra-n),sw=Math.max(0,rw-n);
+const sa=Math.max(0,ra-n),sw=Math.max(0,rw-n);pkMax=n;
 $("oN").textContent=N(n)+"회";$("oE").textContent=N(exp,2)+"장";$("oB").textContent=brk(Math.floor(exp));$("oBw").textContent=brk(sure);
 $("oF").textContent=N(first)+"회";$("oNeed").textContent=need+"장";$("oRa").textContent=N(ra)+"회";$("oRw").textContent=N(rw)+"회";
 $("oSa").textContent=N(sa)+"회";$("oSw").textContent=N(sw)+"회";$("oW").textContent=W(sa*direct)+" / "+W(sw*direct);
@@ -610,6 +703,54 @@ $("wPer").textContent=coin&&fcE?W(coin*r/fcE):(n?"무료":"–");$("wFull").text
 $("wMinus").onclick=()=>{st.wN=Math.max(0,(st.wN|0)-1);wish()};
 $("wPlus").onclick=()=>{st.wN=Math.min(13,(st.wN|0)+1);wish()};
 $("wSlots").addEventListener("click",e=>{const b=e.target.closest("[data-w]");if(!b)return;const i=+b.dataset.w;st.wN=(st.wN===i)?i-1:i;wish()});
+const WSR=i=>WR[i][4]?3:(WR[i][3]>=4?2:(i===5||i===6?1:0)),WSL=["일반","레어","에픽","레전드"];
+let WSS=null;const wsNew=()=>{const pool=[];WR.forEach((x,i)=>{for(let k=0;k<x[1];k++)pool.push({i,w:x[2]/x[1]})});WSS={pool,log:[],busy:false}};
+const wsCost=n=>(WB[n]||0)*10;
+function wsDraw(){const p=WSS.pool;let tw=0;p.forEach(x=>tw+=x.w);let r=Math.random()*tw,j=0;for(;j<p.length-1;j++){r-=p[j].w;if(r<=0)break}const x=p.splice(j,1)[0];WSS.log.push({i:x.i,cost:wsCost(WSS.log.length)});return x.i}
+function wsShow(i){const st_=$("wsStage"),rr=WSR(i);st_.className="wstage r"+rr;st_.innerHTML=`<div class="wscard"><span class="rr">${WSL[rr]}</span><b>${esc(WR[i][0])}</b><small>${WSS.log.length}회차 · ${WSS.log[WSS.log.length-1].cost?N(WSS.log[WSS.log.length-1].cost)+"코인":"무료"}</small></div>`}
+function wsRender(){if(!WSS)wsNew();const r=rate(),n=WSS.log.length,coin=WSS.log.reduce((a,b)=>a+b.cost,0),fc=WSS.log.reduce((a,b)=>a+WR[b.i][3],0),ark=WSS.log.some(b=>b.i===0);
+$("wsN").textContent=n+" / 13";$("wsCoin").textContent=N(coin);$("wsWon").textContent=W(coin*r);$("wsFc").textContent=fc+"장";$("wsArk").textContent=ark?"획득! 🎉":"아직";$("wsPer").textContent=fc&&coin?W(coin*r/fc):"–";
+const go=$("wsGo");go.disabled=n>=13||WSS.busy;$("wsAll").disabled=n>=13||WSS.busy;go.textContent=n>=13?"모두 뽑았어요":`기원하기 · ${n+1}회차 (${wsCost(n)?N(wsCost(n))+"코인":"무료"})`;
+let tw=0;WSS.pool.forEach(x=>tw+=x.w);const g={};WSS.pool.forEach(x=>{g[x.i]=g[x.i]||{c:0,w:0};g[x.i].c++;g[x.i].w+=x.w});
+$("wsLeft").innerHTML=Object.keys(g).length?Object.keys(g).map(k=>{const v=g[k],pc=v.w/tw*100,rr=WSR(+k);return `<div class="wsl r${rr}"><span><b>${esc(WR[k][0])}</b>${v.c>1?` <small>×${v.c}</small>`:""}</span><span>${N(pc,1)}%</span><i><em style="width:${Math.min(100,pc)}%"></em></i></div>`}).join(""):'<div class="empty">모두 뽑았어요.</div>';
+$("wsLog").innerHTML=n?WSS.log.map((b,k)=>`<div class="wsl r${WSR(b.i)}"><span><small>${k+1}회</small> <b>${esc(WR[b.i][0])}</b></span><span>${b.cost?N(b.cost)+"코인":"무료"}</span></div>`).reverse().join(""):'<div class="empty">아직 없어요.</div>'}
+$("wsGo").onclick=()=>{if(!WSS||WSS.busy||WSS.log.length>=13)return;WSS.busy=true;const s_=$("wsStage");s_.className="wstage";s_.innerHTML='<div class="wsorb"></div>';wsRender();setTimeout(()=>{const i=wsDraw();WSS.busy=false;wsShow(i);wsRender()},matchMedia("(prefers-reduced-motion: reduce)").matches?50:750)};
+$("wsAll").onclick=()=>{if(!WSS||WSS.busy)return;let best=null;while(WSS.log.length<13){const i=wsDraw();if(best===null||WSR(i)>WSR(best))best=i}if(best!==null){wsShow(best);$("wsStage").querySelector("small").textContent="남은 것 전부 · 이번 최고 보상"}wsRender()};
+$("wsReset").onclick=()=>{wsNew();const s_=$("wsStage");s_.className="wstage";s_.innerHTML='<div class="wsph">기원 버튼을 눌러 보세요</div>';wsRender()};
+const wsSub=k=>{st.wSub=k==="sim"?"sim":"calc";$("wiCalc").hidden=st.wSub!=="calc";$("wiSim").hidden=st.wSub!=="sim";document.querySelectorAll("#wiSub [data-ws]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.ws===st.wSub));if(st.wSub==="sim")wsRender();save()};
+$("wiSub").addEventListener("click",e=>{const b=e.target.closest("[data-ws]");if(b)wsSub(b.dataset.ws)});
+wsSub("calc");
+let PK=null;
+const PKA={off:[["엔쇼우","용 · 대검"],["케레스","용 · 쌍검"],["아케니아","용 · 랜스"],["로드","얼음 · 해머"],["페페","물 · 헤비보우건"],["루카","번개 · 활"]],SRa:[["브릭스","번개 · 대검"],["류노스케","불 · 태도"],["라야","불 · 쌍검"],["폴리오","물 · 랜스"],["매들린","물 · 활"]],SRc:[["릭스","돌격형"],["토치","돌격형"],["키톤","돌격형"],["페기","돌격형"],["사니앙","돌격형"],["에이비","교란형"],["호난자","교란형"],["일루존","교란형"],["닷지","교란형"],["오사르","교란형"],["페이존","지원형"],["퓨이","지원형"],["쿠쟈","지원형"],["토리","지원형"],["토라노스케","지원형"]],R:[["카치","돌격형"],["보론","돌격형"],["레안","돌격형"],["킨","돌격형"],["나이브","돌격형"],["폼폼","교란형"],["루루","교란형"],["얏키","교란형"],["토카","교란형"],["루탕","교란형"],["케이피","지원형"],["그라스","지원형"],["프로디","지원형"],["호호우","지원형"],["길","지원형"]],pu:[["미도리","불 · 태도 · 한정"]]};
+const pkNew=()=>{PK={n:0,pity:+st.iPity||0,g:!!st.iG,ban:+st.iBan||0,used:!!st.iUsed,sr:0,pu:0,off:0,cnt:{R:0,SRa:0,SRc:0},got:{},log:[],busy:false,tk:Math.max(0,+st.pkTk||0)}};
+const pkLim=()=>st.pkInf===false;
+function pkOne(){const P_=PK;P_.n++;P_.pity++;P_.ban++;P_.sr++;let r=Math.random()*100,res;
+const force120=!P_.used&&P_.ban>=120,forceS=P_.pity>=90;
+if(force120||forceS||r<0.6){let pu=force120||P_.g||Math.random()<.5;res=pu?"pu":"off";P_.pity=0;P_.sr=0;if(pu){P_.pu++;P_.g=false;P_.used=true}else{P_.off++;P_.g=true}P_.log.push({n:P_.n,pu,nm:null,why:force120&&!(r<0.6)?"120회 확정":forceS&&!(r<0.6)?"90회 천장":""})}
+else if(r<10||P_.sr>=10){res=Math.random()<.75?"SRa":"SRc";P_.sr=0;P_.cnt[res]++}
+else{res="R";P_.cnt.R++}const pool=PKA[res],e=pool[Math.floor(Math.random()*pool.length)];if(res==="pu"||res==="off")P_.log[P_.log.length-1].nm=e[0];const gk=res+"|"+e[0];P_.got[gk]=(P_.got[gk]||0)+1;return{k:res,nm:e[0],sub:e[1]}}
+const PKL={pu:["SSR","픽업"],off:["SSR","상시 모험가"],SRa:["SR","모험가"],SRc:["SR","동반자"],R:["R","동반자"]};
+function pkCards(arr){const s_=$("pkStage");s_.className="pkstage"+(arr.length===1?" one":"")+(arr.some(x=>x.k==="pu"||x.k==="off")?" gold":"");const red=matchMedia("(prefers-reduced-motion: reduce)").matches;s_.innerHTML=arr.map((x,k)=>{const l=PKL[x.k],c=x.k==="pu"?"pu":x.k==="off"?"ssr":x.k[0]==="S"?"sr":"";return `<div class="pkc ${c}" style="animation-delay:${red?0:k*70}ms"><span><i>${l[0]} ${l[1]}</i><b>${esc(x.nm)}</b><small>${esc(x.sub)}</small></span></div>`}).join("")}
+function pkRender(){if(!PK)pkNew();const r=rate(),own=+st.iOwn||0,tot=own+PK.pu;
+$("pkN").textContent=N(PK.n)+"회";$("pkWon").textContent=W(PK.n*150*r);$("pkRuta").textContent=N(PK.n*150);$("pkPu").textContent=PK.pu+"장";$("pkOff").textContent=PK.off+"장";
+$("pkBrk").textContent=tot?(tot===1?"명함":(tot-1)+"돌파"):"미획득";
+$("pkPity").textContent=PK.pity+" / 90";$("pkG").textContent=PK.g?"예":"아니요";$("pk120").textContent=PK.used?"사용함":N(120-PK.ban)+"회";$("pkSr").textContent=N(10-PK.sr)+"회";
+$("pkLog").innerHTML=PK.log.length?PK.log.map((x,k)=>`<div class="wsl ${x.pu?"r3":"r2"}"><span><small>${N(x.n)}회째</small> <b>${x.pu?"미도리":esc(x.nm||"상시 SSR")+" (픽뚫)"}</b>${x.why?` <small>· ${x.why}</small>`:""}</span><span>${k?N(x.n-PK.log[k-1].n)+"회만":N(x.n)+"회만"}</span></div>`).reverse().join(""):'<div class="empty">아직 없어요.</div>';
+const c=PK.cnt,all=Math.max(1,PK.n);$("pkCnt").innerHTML=[["SSR 미도리",PK.pu,"r3"],["SSR 상시",PK.off,"r3"],["SR 모험가",c.SRa,"r2"],["SR 동반자",c.SRc,"r2"],["R",c.R,""]].map(([a,b,k])=>`<div class="wsl ${k}"><span><b>${a}</b></span><span>${N(b)} <small>(${N(b/all*100,1)}%)</small></span></div>`).join("");
+const ord={pu:0,off:1,SRa:2,SRc:3,R:4},gl=Object.entries(PK.got).sort((a,b)=>ord[a[0].split("|")[0]]-ord[b[0].split("|")[0]]||b[1]-a[1]);
+$("pkGot").innerHTML=gl.length?gl.map(([g,c])=>{const[k,nm]=g.split("|"),l=PKL[k];return `<div class="wsl ${k==="pu"||k==="off"?"r3":k[0]==="S"?"r2":""}"><span><small>${l[0]} ${l[1]}</small> <b>${esc(nm)}</b></span><span>×${N(c)}</span></div>`}).join(""):'<div class="empty">아직 없어요.</div>';
+const lim=pkLim(),none=lim&&PK.tk<=0;["pk1","pk10","pkUntil"].forEach(id=>$(id).disabled=PK.busy||none);$("pkMine").hidden=!lim;$("pkMine").disabled=none;$("pkTkF").hidden=!lim;$("pkLeft").textContent=N(PK.tk);$("pk10").textContent=lim&&PK.tk>0&&PK.tk<10?PK.tk+"회 모집":"10회 모집"}
+const pkRun=(k,anim)=>{if(!PK)pkNew();if(PK.busy)return;if(pkLim()){k=Math.min(k,PK.tk);if(k<=0)return;PK.tk-=k}const out=[];for(let i=0;i<k;i++)out.push(pkOne());if(k<=10)pkCards(out);else{const best=out.filter(x=>x.k==="pu"||x.k==="off").slice(-10);pkCards(best.length?best:out.slice(-10))}pkRender()};
+$("pk1").onclick=()=>pkRun(1);$("pk10").onclick=()=>pkRun(10);
+$("pkUntil").onclick=()=>{if(!PK)pkNew();const out=[];const start=PK.pu;let g=0;const lim=pkLim();while(PK.pu===start&&g<400&&(!lim||PK.tk>0)){out.push(pkOne());g++;if(lim)PK.tk--}if(!out.length)return;pkCards(out.length<=10?out:out.filter(x=>x.k==="pu"||x.k==="off"));pkRender()};
+$("pkMine").onclick=()=>{if(PK&&PK.tk>0)pkRun(PK.tk)};
+const pkI=$("pkInf"),pkT=$("pkTk");pkI.checked=st.pkInf!==false;pkT.value=st.pkTk||0;
+pkI.onchange=()=>{st.pkInf=pkI.checked;if(!PK)pkNew();PK.tk=Math.max(0,+st.pkTk||0);save();pkRender()};
+pkT.addEventListener("input",()=>{st.pkTk=Math.max(0,+pkT.value||0);if(!PK)pkNew();PK.tk=st.pkTk;save();pkRender()});
+$("pkReset").onclick=()=>{pkNew();const s_=$("pkStage");s_.className="pkstage";s_.innerHTML='<div class="wsph">모집 버튼을 눌러 보세요</div>';pkRender()};
+const pkSub=k=>{st.pSub=k==="sim"?"sim":"calc";$("pkCalc").hidden=st.pSub!=="calc";$("pkSim").hidden=st.pSub!=="sim";document.querySelectorAll("#pkSub [data-ps]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.ps===st.pSub));if(st.pSub==="sim"){if(!PK||!PK.n)pkNew();pkRender()}save()};
+$("pkSub").addEventListener("click",e=>{const b=e.target.closest("[data-ps]");if(b)pkSub(b.dataset.ps)});
+pkSub("calc");
 var eCalc=()=>{const c=(st.eCost||ECOST).map(v=>Math.max(0,+v||0)),n=Math.max(0,Math.min(c.length,st.eN|0)),d=Math.max(1,st.eDays|0);const dayR=c.slice(0,n).reduce((a,b)=>a+b,0);return{n,d,tot:dayR*d}};
 var wCalc=()=>{if(!WS)WS=wSim();const n=Math.max(0,Math.min(13,st.wN|0));let bells=0;for(let i=0;i<n;i++)bells+=WB[i];return{n,coin:bells*10,fc:WS.fc[n]}};
 const CM=[[1000,"상시 모집권 ×10","모집권","std",10],[3000,"뽀로통","스탬프"],[10000,"특별 모집권 ×10","모집권","lim",10],[20000,"장치 도도가마루 인형","장식"],[30000,"드림 허니","페페 전용 의상"],[40000,"고고한 정상","아이콘"],[50000,"드림 베이비","교란형 동반자 전용 의상"],[60000,"상시 SSR 선택 보물 상자","상시 SSR 1개 선택"],[70000,"드림 스틱","헤비보우건 전용 무기 외형"],[80000,"광장해!","스탬프"],[90000,"고양이와 코인","아이콘"],[100000,"사브리 등장","프로필 꾸미기"]];
