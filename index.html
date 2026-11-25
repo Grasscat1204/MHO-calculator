@@ -207,6 +207,10 @@ h2:first-child{margin-top:0}
 <h2>상시 뽑기 전용</h2>
 <div class="list" id="list2"></div>
 
+<h2>재화 전용</h2>
+<p class="note">뽑기 재화는 없고 제니·붓만 주는 팩이에요. 타 패키지 대비 획득 제니 효율이 높아서, 재화가 필요할 때 구매용이에요.</p>
+<div class="list" id="list3"></div>
+
 <h2>배틀 패스 (하나만)</h2>
 <div class="seg" id="bp"></div>
 </section>
@@ -220,6 +224,7 @@ h2:first-child{margin-top:0}
 <div class="field"><label for="own"><svg class="ic" aria-hidden="true"><use href="#i-aka"/></svg>보유 아카하네 코인</label><input type="number" id="own" min="0" step="10"></div>
 <div class="ln"><span><svg class="ic" aria-hidden="true"><use href="#i-aka"/></svg>구매 후 남는 코인</span><b id="rLeft">0</b></div>
 <div class="ln"><span>한정 뽑기 환산</span><b id="rPull">0회</b></div>
+<div class="ln"><span>빛나는 붓</span><b id="rBrush">0</b></div>
 <h2 style="margin-top:18px">기준값</h2>
 <div class="field"><label for="pDef">기본값 사용 <small style="color:var(--mut)">(₩141,000 / 8,080코인)</small></label><input type="checkbox" id="pDef"></div>
 <div class="field"><label for="p6480">6,480 상품 가격 (원)</label><input type="number" id="p6480" step="100"></div>
@@ -293,7 +298,7 @@ h2:first-child{margin-top:0}
 </div>
 </div>
 </section>
-<footer class="band foot" style="padding-top:0">SSR 0.6%, 90회 안에 SSR 확정, SSR의 50%가 픽업, 놓치면 다음 SSR은 픽업 확정, 배너당 1회 120회 픽업 확정. 돌파 = 보유 장수 − 1. 월정액·배틀 패스 원화 가격 일부와 월간 팩 구성은 추정·공략 사이트 기준이라 게임에서 확인하세요. 첫 결제 2배 보너스는 "초회 보너스 포함"을 켰을 때만 코인 결제 상품에 반영돼요. 누적 결제 보너스는 빠져 있어요. 입력값은 이 브라우저에만 저장돼요.<span class="upd">업데이트 2026년 11월 24일</span></footer>
+<footer class="band foot" style="padding-top:0">SSR 0.6%, 90회 안에 SSR 확정, SSR의 50%가 픽업, 놓치면 다음 SSR은 픽업 확정, 배너당 1회 120회 픽업 확정. 돌파 = 보유 장수 − 1. 월정액·배틀 패스 원화 가격 일부와 월간 팩 구성은 추정·공략 사이트 기준이라 게임에서 확인하세요. 첫 결제 2배 보너스는 "초회 보너스 포함"을 켰을 때만 코인 결제 상품에 반영돼요. 누적 결제 보너스는 빠져 있어요. 입력값은 이 브라우저에만 저장돼요.<span class="upd">업데이트 2026년 11월 25일</span></footer>
 
 <script>
 {
@@ -324,10 +329,11 @@ const P=[
 ["980 결제 → 코인 교환","결제",0,22000,0,980,0,0,"",9],
 ["60 결제 → 코인 교환","결제",0,1400,0,60,0,0,"",9]
 ];
+const Z=[["주간 붓 셀렉트",300,0,40,640000,"주 1회",4,"빛나는 붓 40"],["월간 붓 셀렉트",980,0,150,2400000,"월 1회",1,"빛나는 붓 150"],["매주 무료",0,0,0,8800,"주 1회",4,"무료"],["시즌 상시 팩",0,0,0,8800,"무료",1,"무료"]];
 const S=[["주간 모집 세일 (300코인)",300,0,10,8800,"주 2회",8],["모집-셀렉션 (₩28,000)",0,28000,20,28800,"시즌 2회",2]];
 const B=[["선택 안 함",0,""],["펑펑 화로",14500,"SSR 동반자 코지로 + 선택 1 · 육성 소재 · 레벨을 올려야 받음"],["쾅쾅 화로",28000,"펑펑 화로 보상 전부 + 코지로 추가 + 레벨 +10으로 시작 · 직접 구매 가격"],["쾅쾅 화로 (업그레이드)",32000,"펑펑 화로에서 쾅쾅 화로로 업그레이드 · 14,500 + 17,500 = 32,000원 · 직접 구매보다 4,000원 더 냄"]];
 const BP={lim:5,ruta:680,zen:4900000};
-const def={q:{"월정액 플랜":1},s:{},bp:1,own:0,p6480:141000,c6480:8080,iLim:0,iRuta:0,iInc:false,iPity:0,iG:false,iBan:0,iUsed:false,iOwn:0,iTgt:0,iAvg:62.5,view:"*",tab:"plan",first:false,eN:0,eDays:30,eCost:[50,100,200,200,300],presets:[],pDef:true};
+const def={q:{"월정액 플랜":1},s:{},bp:1,own:0,p6480:141000,c6480:8080,iLim:0,iRuta:0,z:{},iInc:false,iPity:0,iG:false,iBan:0,iUsed:false,iOwn:0,iTgt:0,iAvg:62.5,view:"*",tab:"plan",first:false,eN:0,eDays:30,eCost:[50,100,200,200,300],presets:[],pDef:true};
 let st;
 try{let v=localStorage.getItem("mhoCalc2");if(v)st=Object.assign(structuredClone(def),JSON.parse(v));else{st=structuredClone(def);const o=JSON.parse(localStorage.getItem("mhoCalc")||"{}");if(o.presets)st.presets=o.presets}}catch(e){st=structuredClone(def)}
 const save=()=>{try{localStorage.setItem("mhoCalc2",JSON.stringify(st))}catch(e){}};
@@ -349,6 +355,7 @@ const v=types.includes(st.view)?st.view:"*";
 $("flt").innerHTML=[["*","전체",all.length],...types.map(t=>[t,t,all.filter(x=>x.type===t).length])].map(([k,l,c])=>`<button type="button" data-t="${esc(k)}" aria-pressed="${v===k}">${esc(l)} <span class="cnt">${c}</span></button>`).join("");
 const its=v==="*"?all:all.filter(it=>it.type===v);
 $("list").innerHTML='<div class="row head"><span>순위</span><span>상품</span><span class="num">실 결제</span><span class="num">한정 뽑기</span><span class="num">1회당</span><span class="num">구매 횟수</span></div>'+(its.length?"":'<div class="empty">이 종류에는 상품이 없어요.</div>')+its.map(it=>{const q=st.q[it.name]||0,eff=direct/it.per;return `<div class="row${q?" on":""}${it.rank<=3?" best":""}${eff<1?" weak":""}"><span class="rk">${it.rank}</span><span class="nm"><b>${esc(it.name)}</b><span class="tag">${esc(it.type)}</span><small>${desc(it)}</small><span class="mx">${it.pay?W(it.pay):"무료"} · ${N(it.pulls,1)}회 · 1회 ${W(it.per)} · ${isFinite(eff)?N(eff,2)+"배":"무료"}</span></span><span class="num c1">${it.pay?W(it.pay):"무료"}${it.coin?`<small style="display:block;color:var(--mut);font-size:12px"><svg class="ic" aria-hidden="true"><use href="#i-aka"/></svg>${N(it.coin)}</small>`:""}</span><span class="num c2">${N(it.pulls,1)}회</span><span class="num c3"><span class="pp">${W(it.per)}</span><span style="display:block;font-size:12px;color:var(--mut)">${isFinite(eff)?N(eff,2)+"배":"무료"}</span><div class="eff"><i style="width:${Math.min(100,eff/3*100)}%"></i></div></span><span class="st" data-k="q" data-n="${esc(it.name)}" data-m="${it.max}"><button aria-label="줄이기" ${q<=0?"disabled":""}>−</button><span>${q}</span><button aria-label="늘리기" ${q>=it.max?"disabled":""}>+</button></span></div>`}).join("");
+$("list3").innerHTML=Z.map(z=>{const pay=z[1]?z[1]*rate():z[2],q=(st.z||{})[z[0]]||0,per=pay?pay/(z[4]/10000):0;return `<div class="row${q?" on":""}"><span class="rk">·</span><span class="nm"><b>${esc(z[0])}</b><small>제니 ${zf(z[4])}${z[3]?" · 빛나는 붓 "+z[3]:""} · ${esc(z[5])}</small><span class="mx">${pay?W(pay):"무료"} · 제니 ${zf(z[4])} · 1만당 ${pay?W(per):"무료"}</span></span><span class="num c1">${pay?W(pay):"무료"}${z[1]?`<small style="display:block;color:var(--mut);font-size:12px">${IC("aka")}${N(z[1])}</small>`:""}</span><span class="num c2">제니 ${zf(z[4])}</span><span class="num c3"><span class="pp">${pay?W(per):"무료"}</span><span style="display:block;font-size:12px;color:var(--mut)">제니 1만당</span></span><span class="st" data-k="z" data-n="${esc(z[0])}" data-m="${z[6]}"><button aria-label="줄이기" ${q<=0?"disabled":""}>−</button><span>${q}</span><button aria-label="늘리기" ${q>=z[6]?"disabled":""}>+</button></span></div>`}).join("");
 $("list2").innerHTML=S.map(s=>{const pay=s[1]?s[1]*rate():s[2],q=st.s[s[0]]||0;return `<div class="row${q?" on":""}"><span class="rk">·</span><span class="nm"><b>${esc(s[0])}</b><small><svg class="ic" aria-hidden="true"><use href="#i-std"/></svg>상시권 ${s[3]} · 제니 ${N(s[4])} · ${esc(s[5])}</small><span class="mx">${W(pay)} · 상시 1회 ${W(pay/s[3])}</span></span><span class="num c1">${W(pay)}</span><span class="num c2">상시 ${s[3]}회</span><span class="num c3"><span class="pp">${W(pay/s[3])}</span></span><span class="st" data-k="s" data-n="${esc(s[0])}" data-m="${s[6]}"><button aria-label="줄이기" ${q<=0?"disabled":""}>−</button><span>${q}</span><button aria-label="늘리기" ${q>=s[6]?"disabled":""}>+</button></span></div>`}).join("");
 $("bp").innerHTML=B.map((b,i)=>`<label><input type="radio" name="bp" value="${i}" ${st.bp===i?"checked":""}><span><b>${esc(b[0])}</b>${b[1]?`<small class="bpd">${W(b[1])} · 한정 ${N(BP.lim+BP.ruta/150,1)}회 · 1회 ${W(b[1]/(BP.lim+BP.ruta/150))} · 제니 ${N(BP.zen)}</small><small class="bpd">${esc(b[2])}</small>`:""}</span></label>`).join("");
 calc();
@@ -356,6 +363,7 @@ calc();
 function calc(){
 const r=rate();let tot=0,cash=0,coin=0,lim=0,ruta=0,std=0,zen=0;
 P.map(item).forEach(it=>{const q=st.q[it.name]||0;if(!q)return;tot+=q*it.pay;cash+=q*it.cash;coin+=q*it.coin;lim+=q*it.lim;ruta+=q*it.base+it.fb;std+=q*it.std;zen+=q*it.zen});
+let brush=0;Z.forEach(z=>{const q=(st.z||{})[z[0]]||0;if(!q)return;tot+=q*(z[1]?z[1]*r:z[2]);cash+=q*z[2];coin+=q*z[1];brush+=q*z[3];zen+=q*z[4]});
 S.forEach(s=>{const q=st.s[s[0]]||0;if(!q)return;tot+=q*(s[1]?s[1]*r:s[2]);cash+=q*s[2];coin+=q*s[1];std+=q*s[3];zen+=q*s[4]});
 const b=B[st.bp]||B[0];if(b[1]){tot+=b[1];cash+=b[1];lim+=BP.lim;ruta+=BP.ruta;zen+=BP.zen}
 const pulls=lim+ruta/150,left=st.own-coin;
@@ -364,7 +372,7 @@ $("mTot").textContent=W(tot);$("mPull").textContent=N(pulls,1)+"회";
 $("gTxt").textContent=N(coin)+" / 보유 "+N(st.own);const f=$("gFill");f.style.width=Math.min(100,st.own?coin/st.own*100:(coin?100:0))+"%";f.classList.toggle("over",coin>st.own);
 $("kLim").textContent=N(lim);$("kRuta").textContent=N(ruta);$("kStd").textContent=N(std);$("kZen").textContent=N(zen);
 $("rTot").textContent=W(tot);$("rCash").textContent=W(cash);$("rCoinW").textContent=W(tot-cash);$("rCoin").textContent=N(coin);
-$("rLeft").textContent=N(left);$("rLeft").className=left<0?"neg":"";$("rPull").textContent=N(pulls,1)+"회";
+$("rLeft").textContent=N(left);$("rLeft").className=left<0?"neg":"";$("rPull").textContent=N(pulls,1)+"회";$("rBrush").textContent=N(brush);
 $("rate").textContent="₩"+N(r,2);$("direct").textContent=W(150*r);
 pick(lim,ruta,150*r);save();if(typeof renderP==="function")renderP();
 }
@@ -387,17 +395,17 @@ $("flt").addEventListener("click",e=>{const b=e.target.closest("[data-t]");if(!b
 $("bp").addEventListener("change",e=>{st.bp=+e.target.value;calc()});
 ["own","p6480","c6480","iLim","iRuta","iPity","iBan","iOwn","iTgt","iAvg"].forEach(id=>{const el=$(id);el.value=st[id];el.addEventListener("input",()=>{st[id]=+el.value||0;id==="p6480"||id==="c6480"?rows():calc()})});
 ["iInc","iG","iUsed"].forEach(id=>{const el=$(id);el.checked=!!st[id];el.addEventListener("change",()=>{st[id]=el.checked;calc()})});
-$("pPass").onclick=()=>{st.q={"월정액 플랜":1};st.s={};st.bp=1;rows()};
-$("pWeek").onclick=()=>{st.q={"월정액 플랜":1,"주간 셀렉트":4,"한정 주간 모집 세일":4,"주간 성장 지원":4,"주간 모집 셀렉트":4};st.s={};st.bp=2;rows()};
-const totOf=p=>{let t=0,l=0,r=0;P.map(item).forEach(it=>{const q=p.q[it.name]||0;t+=q*it.pay;l+=q*it.lim;r+=q?q*it.base+it.fb:0});S.forEach(x=>{const q=(p.s||{})[x[0]]||0;t+=q*(x[1]?x[1]*rate():x[2])});const b=B[p.bp]||B[0];if(b[1]){t+=b[1];l+=BP.lim;r+=BP.ruta}return W(t)+" · 한정 "+N(l+r/150,1)+"회"};
+$("pPass").onclick=()=>{st.q={"월정액 플랜":1};st.s={};st.z={};st.bp=1;rows()};
+$("pWeek").onclick=()=>{st.q={"월정액 플랜":1,"주간 셀렉트":4,"한정 주간 모집 세일":4,"주간 성장 지원":4,"주간 모집 셀렉트":4};st.s={};st.z={};st.bp=2;rows()};
+const totOf=p=>{let t=0,l=0,r=0;P.map(item).forEach(it=>{const q=p.q[it.name]||0;t+=q*it.pay;l+=q*it.lim;r+=q?q*it.base+it.fb:0});S.forEach(x=>{const q=(p.s||{})[x[0]]||0;t+=q*(x[1]?x[1]*rate():x[2])});Z.forEach(x=>{const q=(p.z||{})[x[0]]||0;t+=q*(x[1]?x[1]*rate():x[2])});const b=B[p.bp]||B[0];if(b[1]){t+=b[1];l+=BP.lim;r+=BP.ruta}return W(t)+" · 한정 "+N(l+r/150,1)+"회"};
 const renderP=()=>{$("pList").innerHTML=(st.presets||[]).map((p,i)=>`<span class="pre"><button type="button" class="ap" data-a="${i}">${esc(p.name)}<small>${totOf(p)}</small></button><button type="button" class="px" data-d="${i}" aria-label="${esc(p.name)} 삭제">×</button></span>`).join("")};
 $("pSave").onclick=()=>{$("pForm").hidden=false;$("pName").value="";$("pName").focus()};
 $("pCancel").onclick=()=>{$("pForm").hidden=true};
-$("pForm").onsubmit=e=>{e.preventDefault();const name=$("pName").value.trim()||("프리셋 "+((st.presets||[]).length+1));st.presets=(st.presets||[]).filter(p=>p.name!==name);st.presets.push({name,q:{...st.q},s:{...st.s},bp:st.bp});$("pForm").hidden=true;save();renderP()};
-$("pList").addEventListener("click",e=>{const a=e.target.closest("[data-a]"),d=e.target.closest("[data-d]");if(a){const p=st.presets[+a.dataset.a];st.q={...p.q};st.s={...(p.s||{})};st.bp=p.bp||0;rows()}else if(d){if(!d.classList.contains("arm")){d.classList.add("arm");d.textContent="삭제?";setTimeout(()=>{if(d.isConnected){d.classList.remove("arm");d.textContent="×"}},2500)}else{st.presets.splice(+d.dataset.d,1);save();renderP()}}});
+$("pForm").onsubmit=e=>{e.preventDefault();const name=$("pName").value.trim()||("프리셋 "+((st.presets||[]).length+1));st.presets=(st.presets||[]).filter(p=>p.name!==name);st.presets.push({name,q:{...st.q},s:{...st.s},z:{...(st.z||{})},bp:st.bp});$("pForm").hidden=true;save();renderP()};
+$("pList").addEventListener("click",e=>{const a=e.target.closest("[data-a]"),d=e.target.closest("[data-d]");if(a){const p=st.presets[+a.dataset.a];st.q={...p.q};st.s={...(p.s||{})};st.z={...(p.z||{})};st.bp=p.bp||0;rows()}else if(d){if(!d.classList.contains("arm")){d.classList.add("arm");d.textContent="삭제?";setTimeout(()=>{if(d.isConnected){d.classList.remove("arm");d.textContent="×"}},2500)}else{st.presets.splice(+d.dataset.d,1);save();renderP()}}});
 const jOut=()=>JSON.stringify({app:"mho-calc",version:1,presets:st.presets||[]},null,1);
 const jMsg=t=>{$("jMsg").textContent=t};
-const jIn=txt=>{try{const o=JSON.parse(txt),arr=Array.isArray(o)?o:o.presets;if(!Array.isArray(arr))throw 0;let n=0;arr.forEach(p=>{if(!p||typeof p.name!=="string"||typeof p.q!=="object")return;const name=p.name.slice(0,20),q={},sv={};P.forEach(x=>{const v=+p.q[x[0]];if(v>0)q[x[0]]=Math.min(x[9],Math.floor(v))});S.forEach(x=>{const v=+((p.s||{})[x[0]]);if(v>0)sv[x[0]]=Math.min(x[6],Math.floor(v))});st.presets=(st.presets||[]).filter(z=>z.name!==name);st.presets.push({name,q,s:sv,bp:Math.min(B.length-1,Math.max(0,+p.bp||0))});n++});save();renderP();jMsg(n?`프리셋 ${n}개를 불러왔어요.`:"불러올 프리셋이 없어요.")}catch(e){jMsg("JSON 형식이 맞지 않아요.")}};
+const jIn=txt=>{try{const o=JSON.parse(txt),arr=Array.isArray(o)?o:o.presets;if(!Array.isArray(arr))throw 0;let n=0;arr.forEach(p=>{if(!p||typeof p.name!=="string"||typeof p.q!=="object")return;const name=p.name.slice(0,20),q={},sv={};P.forEach(x=>{const v=+p.q[x[0]];if(v>0)q[x[0]]=Math.min(x[9],Math.floor(v))});S.forEach(x=>{const v=+((p.s||{})[x[0]]);if(v>0)sv[x[0]]=Math.min(x[6],Math.floor(v))});const zv={};Z.forEach(x=>{const v=+((p.z||{})[x[0]]);if(v>0)zv[x[0]]=Math.min(x[6],Math.floor(v))});st.presets=(st.presets||[]).filter(z=>z.name!==name);st.presets.push({name,q,s:sv,z:zv,bp:Math.min(B.length-1,Math.max(0,+p.bp||0))});n++});save();renderP();jMsg(n?`프리셋 ${n}개를 불러왔어요.`:"불러올 프리셋이 없어요.")}catch(e){jMsg("JSON 형식이 맞지 않아요.")}};
 document.querySelector(".pj").addEventListener("toggle",e=>{if(e.target.open)$("jText").value=jOut()});
 let dl=null;if(window.claude&&window.claude.use)window.claude.use("downloads").then(x=>{dl=x}).catch(()=>{});
 $("jDown").onclick=async()=>{const t=jOut();$("jText").value=t;if(dl){try{await dl.save({filename:"mho-presets.json",data:t});jMsg("파일로 저장했어요.")}catch(e){jMsg("저장이 취소됐거나 막혔어요. JSON 복사를 쓰세요.")}return}if(window.claude){jMsg("이 화면에선 파일 저장을 쓸 수 없어요. JSON 복사를 쓰세요.");return}try{const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([t],{type:"application/json"}));a.download="mho-presets.json";document.body.appendChild(a);a.click();a.remove();jMsg("mho-presets.json 파일로 저장했어요.")}catch(e){jMsg("파일 저장이 막혔어요. JSON 복사를 쓰세요.")}};
@@ -433,7 +441,7 @@ $("eCostReset").onclick=()=>{st.eCost=ECOST.slice();eCostUI();energy()};
 eCostUI();energy();
 setTab(location.hash==="#pickup"?"pick":location.hash==="#energy"?"en":(st.tab||"plan"));
 const ff=$("fFirst");ff.checked=!!st.first;ff.onchange=()=>{st.first=ff.checked;rows()};
-$("pReset").onclick=()=>{st.q={};st.s={};st.bp=0;rows()};
+$("pReset").onclick=()=>{st.q={};st.s={};st.z={};st.bp=0;rows()};
 rows();
 }
 </script>
