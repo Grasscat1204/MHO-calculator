@@ -142,6 +142,18 @@ h2:first-child{margin-top:0}
 .wslots{display:grid;grid-template-columns:repeat(auto-fill,minmax(4.6em,1fr));gap:6px;margin:0 0 6px}
 .wt{width:100%;border-collapse:collapse;font-size:15px}.wt th,.wt td{padding:7px 6px;border-bottom:1px solid var(--line);text-align:left}.wt th{color:var(--mut);font-size:13px;font-weight:500}.wt .num{text-align:right;white-space:nowrap}
 .wt tr.sk td:first-child{font-weight:700;color:var(--red)}
+.cumw{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:24px;max-width:1240px;margin:0 auto}
+@media(max-width:900px){.cumw{grid-template-columns:minmax(0,1fr)}}
+.ctrack{background:var(--line);height:12px;margin:4px 0 12px}.ctrack .fill{background:var(--red)}
+.crow{display:grid;grid-template-columns:2em 6.5em minmax(0,1fr) auto;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
+.crow .ok{width:26px;height:26px;border-radius:13px;border:2px solid var(--line);display:grid;place-items:center;font-size:14px;color:transparent}
+.crow.done .ok{background:var(--gold);border-color:var(--gold);color:#fff}
+.crow.done{opacity:.72}
+.crow.next{background:color-mix(in srgb,var(--red) 8%,transparent)}
+.crow .th{font:800 17px "Gothic A1",sans-serif;white-space:nowrap}
+.crow small{display:block;color:var(--mut);font-size:13px}
+.crow .rt{text-align:right;white-space:nowrap;font-size:14px}
+.crow .rt b{display:block;font-size:15px}
 .upd{display:block;margin-top:8px;font-size:12px;opacity:.8}
 .mob{display:none}
 @media(max-width:900px){.wrap{grid-template-columns:minmax(0,1fr)}.rc{position:static}.pick{grid-template-columns:minmax(0,1fr)}}
@@ -182,7 +194,7 @@ h2:first-child{margin-top:0}
 </div>
 </header>
 <div class="now"><span class="pill">진행 중 픽업</span><b>특별 모집 : 미도리</b><span>10월 29일 (목) ~ 11월 27일 (금)</span></div>
-<nav class="tabs" role="tablist"><button type="button" role="tab" id="tbPlan" aria-controls="tabPlan">구매 플랜</button><button type="button" role="tab" id="tbPick" aria-controls="tabPick">픽업 돌파 계산기</button><button type="button" role="tab" id="tbEn" aria-controls="tabEn">에너지 구매</button><button type="button" role="tab" id="tbWi" aria-controls="tabWi">기원</button></nav>
+<nav class="tabs" role="tablist"><button type="button" role="tab" id="tbPlan" aria-controls="tabPlan">구매 플랜</button><button type="button" role="tab" id="tbEn" aria-controls="tabEn">에너지 구매</button><button type="button" role="tab" id="tbWi" aria-controls="tabWi">기원</button><button type="button" role="tab" id="tbPick" aria-controls="tabPick">픽업 돌파 계산기</button><button type="button" role="tab" id="tbCum" aria-controls="tabCum">누적 결제</button></nav>
 <div class="mob"><span>합계 <b id="mTot">₩0</b></span><span>한정 <b id="mPull">0회</b></span></div>
 
 <main class="band" id="tabPlan" role="tabpanel">
@@ -330,6 +342,30 @@ h2:first-child{margin-top:0}
 </div>
 </div>
 </section>
+<section class="band" id="tabCum" role="tabpanel" hidden>
+<div class="cumw">
+<div class="card">
+<h2>누적 결제 보너스</h2>
+<p class="note">아카하네 코인을 결제한 누적량에 따라 받는 보상이에요. 상시 오픈이고, 게임의 누적 결제 보너스 화면에서 "결제 금액" 옆 눈 버튼을 누르면 지금 누적량이 보여요.</p>
+<div class="field"><label for="cNow"><svg class="ic" aria-hidden="true"><use href="#i-aka"/></svg>지금 누적 결제 코인</label><input type="number" id="cNow" min="0" step="10"></div>
+<label class="fbx"><input type="checkbox" id="cInc"><span><b>구매 플랜의 코인 결제분 포함</b> <small>구매 플랜에서 고른 코인 결제 상품의 기본 코인을 더해요 (첫 결제·특가 추가분 제외)</small></span></label>
+<div class="res">
+<div class="hl"><span>계산 기준 누적 코인</span><b id="cTot">0</b></div>
+<div><span>다음 보상까지</span><b id="cNext">–</b></div>
+<div><span>다음 보상까지 금액</span><b id="cNextW">–</b></div>
+<div><span>100,000까지 금액</span><b id="cAllW">–</b></div>
+</div>
+<div class="track ctrack"><div class="fill" id="cFill"></div></div>
+<p class="note">금액은 6,480 상품(₩141,000)으로 채운다고 보고, 결제 코인 1개 = <b id="cPer">–</b>로 환산했어요. 상품 단위로 사야 해서 실제로는 조금 더 들 수 있어요. 게임 안내에 따르면 코인 결제는 구매한 기본 코인만 쌓이고, 첫 결제 추가분과 특가 추가분은 빠져요. 월정액·시즌 팩 같은 일부 현금 상품은 실제 결제 금액에 따라 쌓이는데, 환산 비율이 나와 있지 않아 이 계산에는 넣지 않았어요.</p>
+</div>
+<div class="card">
+<h2>단계별 보상</h2>
+<div class="list" id="cList"></div>
+<div class="ln tot"><span>모집권 보상 환산 (전체)</span><b id="cVal">–</b></div>
+<p class="note" style="margin-top:8px">모집권은 1장 = 루타 코인 150개 = 아카하네 코인 150개로 환산했어요. 의상·스탬프·아이콘·SSR 선택 상자는 돈으로 환산하지 않았어요.</p>
+</div>
+</div>
+</section>
 <footer class="band foot" style="padding-top:0">SSR 0.6%, 90회 안에 SSR 확정, SSR의 50%가 픽업, 놓치면 다음 SSR은 픽업 확정, 배너당 1회 120회 픽업 확정. 돌파 = 보유 장수 − 1. 월정액·시즌 패스 원화 가격 일부와 월간 팩 구성은 추정·공략 사이트 기준이라 게임에서 확인하세요. 첫 결제 2배 보너스는 "초회 보너스 포함"을 켰을 때만 코인 결제 상품에 반영돼요. 누적 결제 보너스는 빠져 있어요. 입력값은 이 브라우저에만 저장돼요.<span class="upd">업데이트 2026년 11월 25일</span></footer>
 
 <script>
@@ -365,7 +401,7 @@ const Z=[["주간 붓 셀렉트",300,0,40,640000,"주 1회",4,"빛나는 붓 40"
 const S=[["주간 모집 세일 (300코인)",300,0,10,8800,"주 2회",8],["모집-셀렉션 (₩28,000)",0,28000,20,28800,"시즌 2회",2]];
 const B=[["선택 안 함",0,""],["펑펑 화로",14500,"SSR 동반자 코지로 + 선택 1 · 육성 소재 · 레벨을 올려야 받음"],["쾅쾅 화로",28000,"펑펑 화로 보상 전부 + 코지로 추가 + 레벨 +10으로 시작 · 직접 구매 가격"],["쾅쾅 화로 (업그레이드)",32000,"펑펑 화로에서 쾅쾅 화로로 업그레이드 · 14,500 + 17,500 = 32,000원 · 직접 구매보다 4,000원 더 냄"]];
 const BP={lim:5,ruta:680,zen:4900000};
-const def={q:{"월정액 플랜":1},s:{},bp:1,own:0,p6480:141000,c6480:8080,iLim:0,iRuta:0,z:{},iInc:false,iPity:0,iG:false,iBan:0,iUsed:false,iOwn:0,iTgt:0,iAvg:62.5,view:"*",tab:"plan",first:false,eN:0,eDays:30,wN:1,eInc:false,wInc:false,eCost:[50,100,200,200,300],presets:[],pDef:true};
+const def={q:{"월정액 플랜":1},s:{},bp:1,own:0,p6480:141000,c6480:8080,iLim:0,iRuta:0,z:{},iInc:false,iPity:0,iG:false,iBan:0,iUsed:false,iOwn:0,iTgt:0,iAvg:62.5,view:"*",tab:"plan",first:false,eN:0,eDays:30,wN:1,eInc:false,wInc:false,cNow:0,cInc:false,eCost:[50,100,200,200,300],presets:[],pDef:true};
 let st;
 try{let v=localStorage.getItem("mhoCalc2");if(v)st=Object.assign(structuredClone(def),JSON.parse(v));else{st=structuredClone(def);const o=JSON.parse(localStorage.getItem("mhoCalc")||"{}");if(o.presets)st.presets=o.presets}}catch(e){st=structuredClone(def)}
 const save=()=>{try{localStorage.setItem("mhoCalc2",JSON.stringify(st))}catch(e){}};
@@ -452,7 +488,8 @@ $("jLoad").onclick=()=>jIn($("jText").value);
 const DEF6480=[141000,8080],pd=$("pDef");
 const syncDef=()=>{pd.checked=!!st.pDef;["p6480","c6480"].forEach(id=>$(id).disabled=!!st.pDef);if(st.pDef){st.p6480=DEF6480[0];st.c6480=DEF6480[1];$("p6480").value=st.p6480;$("c6480").value=st.c6480}};
 pd.onchange=()=>{st.pDef=pd.checked;syncDef();rows()};syncDef();
-const setTab=t=>{t=["plan","pick","en","wi"].includes(t)?t:"plan";st.tab=t;[["plan","tabPlan","tbPlan"],["pick","tabPick","tbPick"],["en","tabEn","tbEn"],["wi","tabWi","tbWi"]].forEach(([k,p,b])=>{$(p).hidden=k!==t;$(b).setAttribute("aria-selected",k===t)});document.querySelector(".mob").style.visibility=t==="plan"?"":"hidden";if(t==="en")energy();if(t==="wi")wish();save()};
+const setTab=t=>{t=["plan","pick","en","wi","cum"].includes(t)?t:"plan";st.tab=t;[["plan","tabPlan","tbPlan"],["pick","tabPick","tbPick"],["en","tabEn","tbEn"],["wi","tabWi","tbWi"],["cum","tabCum","tbCum"]].forEach(([k,p,b])=>{$(p).hidden=k!==t;$(b).setAttribute("aria-selected",k===t)});document.querySelector(".mob").style.visibility=t==="plan"?"":"hidden";if(t==="en")energy();if(t==="wi")wish();if(t==="cum")cum();save()};
+$("tbCum").onclick=()=>setTab("cum");
 $("tbWi").onclick=()=>setTab("wi");
 $("tbEn").onclick=()=>setTab("en");
 $("tbPlan").onclick=()=>setTab("plan");$("tbPick").onclick=()=>setTab("pick");
@@ -495,9 +532,19 @@ $("wPlus").onclick=()=>{st.wN=Math.min(13,(st.wN|0)+1);wish()};
 $("wSlots").addEventListener("click",e=>{const b=e.target.closest("[data-w]");if(!b)return;const i=+b.dataset.w;st.wN=(st.wN===i)?i-1:i;wish()});
 var eCalc=()=>{const c=(st.eCost||ECOST).map(v=>Math.max(0,+v||0)),n=Math.max(0,Math.min(c.length,st.eN|0)),d=Math.max(1,st.eDays|0);const dayR=c.slice(0,n).reduce((a,b)=>a+b,0);return{n,d,tot:dayR*d}};
 var wCalc=()=>{if(!WS)WS=wSim();const n=Math.max(0,Math.min(13,st.wN|0));let bells=0;for(let i=0;i<n;i++)bells+=WB[i];return{n,coin:bells*10,fc:WS.fc[n]}};
+const CM=[[1000,"상시 모집권 ×10","모집권","std",10],[3000,"뽀로통","스탬프"],[10000,"특별 모집권 ×10","모집권","lim",10],[20000,"장치 도도가마루 인형","장식"],[30000,"드림 허니","페페 전용 의상"],[40000,"고고한 정상","아이콘"],[50000,"드림 베이비","교란형 동반자 전용 의상"],[60000,"상시 SSR 선택 보물 상자","상시 SSR 1개 선택"],[70000,"드림 스틱","헤비보우건 전용 무기 외형"],[80000,"광장해!","스탬프"],[90000,"고양이와 코인","아이콘"],[100000,"사브리 등장","프로필 꾸미기"]];
+const NOM={"6,480 결제 → 코인 교환":6480,"3,280 결제 → 코인 교환":3280,"1,980 결제 → 코인 교환":1980,"1,280 결제 → 코인 교환":1280,"980 결제 → 코인 교환":980,"300 결제 → 코인 교환":300,"60 결제 → 코인 교환":60};
+function cum(){const per=141000/6480,r=rate();let plan=0;if(st.cInc)Object.keys(NOM).forEach(k=>plan+=(st.q[k]||0)*NOM[k]);const tot=Math.max(0,+st.cNow||0)+plan;
+const nx=CM.find(m=>m[0]>tot);
+$("cTot").textContent=N(tot)+(plan?" (+"+N(plan)+")":"");$("cNext").textContent=nx?N(nx[0]-tot)+"코인":"모두 달성";$("cNextW").textContent=nx?W((nx[0]-tot)*per):"–";$("cAllW").textContent=tot<100000?W((100000-tot)*per):"달성";
+$("cFill").style.width=Math.min(100,tot/1000)+"%";$("cPer").textContent="₩"+N(per,2);
+let val=0;$("cList").innerHTML=CM.map(m=>{const done=tot>=m[0],left=m[0]-tot;const v=m[3]?m[4]*150*r:0;val+=v;return `<div class="crow${done?" done":""}${nx===m?" next":""}"><span class="ok">✓</span><span class="th">${N(m[0])}</span><span><b>${esc(m[1])}</b><small>${esc(m[2])}${v?" · 약 "+W(v):""}</small></span><span class="rt">${done?"<b>달성</b>":`<b>${N(left)}코인</b>${W(left*per)}`}</span></div>`}).join("");
+$("cVal").textContent=W(val)+" (모집권 20장)";save()}
+const cN=$("cNow"),cI=$("cInc");cN.value=st.cNow||0;cI.checked=!!st.cInc;
+cN.addEventListener("input",()=>{st.cNow=Math.max(0,+cN.value||0);cum()});cI.onchange=()=>{st.cInc=cI.checked;cum()};
 const eI=$("eInc"),wI=$("wInc");eI.checked=!!st.eInc;wI.checked=!!st.wInc;
 eI.onchange=()=>{st.eInc=eI.checked;calc()};wI.onchange=()=>{st.wInc=wI.checked;calc()};
-setTab(location.hash==="#pickup"?"pick":location.hash==="#energy"?"en":location.hash==="#wish"?"wi":(st.tab||"plan"));
+setTab(location.hash==="#pickup"?"pick":location.hash==="#energy"?"en":location.hash==="#wish"?"wi":location.hash==="#cumulative"?"cum":(st.tab||"plan"));
 const ff=$("fFirst");ff.checked=!!st.first;ff.onchange=()=>{st.first=ff.checked;rows()};
 $("pReset").onclick=()=>{st.q={};st.s={};st.z={};st.bp=0;rows()};
 rows();
