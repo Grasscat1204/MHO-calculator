@@ -118,6 +118,10 @@ h2:first-child{margin-top:0}
 .tabs button:hover{color:var(--ink)}
 .tabs button[aria-selected=true]{color:var(--red);border-bottom-color:var(--red)}
 .tabs button:focus-visible{outline:3px solid var(--gold);outline-offset:-3px}
+.tabs button{flex:none}
+@media(max-width:640px){.tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;padding:10px 16px;overflow:visible;border-bottom:1px solid var(--line)}
+.tabs button{min-height:42px;padding:4px 6px;margin:0;border:1px solid var(--line);border-radius:10px;font-size:14px;line-height:1.25;white-space:normal;word-break:keep-all;text-align:center;background:var(--panel)}
+.tabs button[aria-selected=true]{background:var(--red);border-color:var(--red);color:#fff}}
 .fbx{display:flex;align-items:center;gap:10px;min-height:48px;padding:6px 14px;margin:0 0 12px;border:1px solid var(--line);border-radius:10px;background:var(--panel);cursor:pointer}
 .fbx input{width:20px;height:20px;accent-color:var(--red);flex:none}
 .fbx small{color:var(--mut)}
