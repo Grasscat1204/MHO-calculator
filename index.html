@@ -315,7 +315,7 @@ const P=[
 ["녹풍 육성 팩","녹풍",1980,0,0,2000,0,288000,"프라임 베리 100 · 말 사료 42 · 명석 1200",1],
 ["월간 육성 세일","월간",3280,0,0,3280,0,88000,"거친 물감 160 · 맑은 붓 32",1],
 ["6,480 결제 → 코인 교환","결제",0,"R6480",0,"C6480",0,0,"기준 상품",9],
-["사브리 추천","시즌",0,141000,50,0,15,198000,"",1],
+["사브리 추천","시즌",0,141000,50,0,15,198000,"",2],
 ["3,280 결제 → 코인 교환","결제",0,75000,0,3880,0,0,"",9],
 ["1,280 결제 → 코인 교환","결제",0,28000,0,1440,0,0,"",9],
 ["1,980 결제 → 코인 교환","결제",0,44000,0,2260,0,0,"",9],
@@ -337,7 +337,7 @@ const N=(n,d=0)=>Number(n).toLocaleString("ko-KR",{maximumFractionDigits:d,minim
 const esc=t=>String(t).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const rate=()=>st.p6480/Math.max(1,st.c6480);
 const FB={"6,480 결제 → 코인 교환":12960,"3,280 결제 → 코인 교환":6560,"1,980 결제 → 코인 교환":3960,"1,280 결제 → 코인 교환":2560,"980 결제 → 코인 교환":1960,"300 결제 → 코인 교환":600,"60 결제 → 코인 교환":120};
-const item=p=>{const cash=p[3]==="R6480"?st.p6480:p[3],base=p[5]==="C6480"?st.c6480:p[5],fb=st.first&&FB[p[0]]?Math.max(0,FB[p[0]]-base):0,ruta=base+fb;const pay=p[2]?p[2]*rate():cash;const pulls=p[4]+ruta/150;let note=p[8];if(FB[p[0]]&&st.first)note=`첫 결제 2배 ${N(FB[p[0]])}코인으로 계산 (첫 1회만)`;else if(/^(980|60) /.test(p[0]))note="첫 결제 이후 보너스 미반영";return{name:p[0],type:p[1],coin:p[2],cash:p[2]?0:cash,lim:p[4],ruta,base,fb,std:p[6],zen:p[7],note,max:p[9],pay,pulls,per:pulls?pay/pulls:Infinity}};
+const item=p=>{const cash=p[3]==="R6480"?st.p6480:p[3],base=p[5]==="C6480"?st.c6480:p[5],fb=st.first&&FB[p[0]]?Math.max(0,FB[p[0]]-base):0,ruta=base+fb;const pay=p[2]?p[2]*rate():cash;const pulls=p[4]+ruta/150;let note=p[8];if(FB[p[0]]&&st.first)note=`첫 1회는 2배 ${N(FB[p[0]])}코인 · 2개째부터 평소 ${N(base)}코인 (1회당 ${W(pay/(p[4]+base/150))})`;else if(/^(980|60) /.test(p[0]))note="첫 결제 이후 보너스 미반영";return{name:p[0],type:p[1],coin:p[2],cash:p[2]?0:cash,lim:p[4],ruta,base,fb,std:p[6],zen:p[7],note,max:p[9],pay,pulls,per:pulls?pay/pulls:Infinity}};
 const IC=k=>`<svg class="ic" aria-hidden="true"><use href="#i-${k}"/></svg>`;
 const zf=z=>z>=10000?N(z/10000,z%10000?1:0)+"만":N(z);
 const desc=it=>{const a=[];if(it.lim)a.push(IC("lim")+"한정권 "+it.lim);if(it.ruta)a.push(it.type==="결제"?IC("aka")+"코인 "+N(it.ruta):IC("ruta")+"루타 "+N(it.ruta));if(it.std)a.push(IC("std")+"상시권 "+it.std);if(it.zen)a.push("제니 "+zf(it.zen));if(it.note)a.push(esc(it.note));return a.join(" · ")};
