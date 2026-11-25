@@ -139,6 +139,9 @@ h2:first-child{margin-top:0}
 .eslot.on{border-color:var(--red);background:color-mix(in srgb,var(--red) 10%,var(--bg))}
 .eslot.on i em{background:var(--red)}
 #eCostIn .field input{width:6em}
+.wslots{display:grid;grid-template-columns:repeat(auto-fill,minmax(4.6em,1fr));gap:6px;margin:0 0 6px}
+.wt{width:100%;border-collapse:collapse;font-size:15px}.wt th,.wt td{padding:7px 6px;border-bottom:1px solid var(--line);text-align:left}.wt th{color:var(--mut);font-size:13px;font-weight:500}.wt .num{text-align:right;white-space:nowrap}
+.wt tr.sk td:first-child{font-weight:700;color:var(--red)}
 .upd{display:block;margin-top:8px;font-size:12px;opacity:.8}
 .mob{display:none}
 @media(max-width:900px){.wrap{grid-template-columns:minmax(0,1fr)}.rc{position:static}.pick{grid-template-columns:minmax(0,1fr)}}
@@ -179,7 +182,7 @@ h2:first-child{margin-top:0}
 </div>
 </header>
 <div class="now"><span class="pill">진행 중 픽업</span><b>특별 모집 : 미도리</b><span>10월 29일 (목) ~ 11월 27일 (금)</span></div>
-<nav class="tabs" role="tablist"><button type="button" role="tab" id="tbPlan" aria-controls="tabPlan">구매 플랜</button><button type="button" role="tab" id="tbPick" aria-controls="tabPick">픽업 돌파 계산기</button><button type="button" role="tab" id="tbEn" aria-controls="tabEn">에너지 구매</button></nav>
+<nav class="tabs" role="tablist"><button type="button" role="tab" id="tbPlan" aria-controls="tabPlan">구매 플랜</button><button type="button" role="tab" id="tbPick" aria-controls="tabPick">픽업 돌파 계산기</button><button type="button" role="tab" id="tbEn" aria-controls="tabEn">에너지 구매</button><button type="button" role="tab" id="tbWi" aria-controls="tabWi">기원</button></nav>
 <div class="mob"><span>합계 <b id="mTot">₩0</b></span><span>한정 <b id="mPull">0회</b></span></div>
 
 <main class="band" id="tabPlan" role="tabpanel">
@@ -225,6 +228,7 @@ h2:first-child{margin-top:0}
 <div class="ln"><span><svg class="ic" aria-hidden="true"><use href="#i-aka"/></svg>구매 후 남는 코인</span><b id="rLeft">0</b></div>
 <div class="ln"><span>한정 뽑기 환산</span><b id="rPull">0회</b></div>
 <div class="ln"><span>빛나는 붓</span><b id="rBrush">0</b></div>
+<div id="rExtra"></div>
 <h2 style="margin-top:18px">기준값</h2>
 <div class="field"><label for="pDef">기본값 사용 <small style="color:var(--mut)">(₩141,000 / 8,080코인)</small></label><input type="checkbox" id="pDef"></div>
 <div class="field"><label for="p6480">6,480 상품 가격 (원)</label><input type="number" id="p6480" step="100"></div>
@@ -275,6 +279,7 @@ h2:first-child{margin-top:0}
 <div class="card">
 <h2>루타 코인 에너지 충전</h2>
 <p class="note">루타 코인으로 1회에 에너지 40씩, 하루 최대 5회 충전해요. 회차마다 비용이 올라요. 매일 아침 무료로 에너지 120이 차요.</p>
+<label class="fbx"><input type="checkbox" id="eInc"><span><b>구매 플랜에 포함</b> <small>영수증에 에너지 충전 내역으로 들어가요</small></span></label>
 <div class="estep"><button type="button" id="eMinus" aria-label="충전 횟수 줄이기">−</button><div><span id="eN">0</span><small>하루 충전 횟수</small></div><button type="button" id="ePlus" aria-label="충전 횟수 늘리기">+</button></div>
 <div class="eslots" id="eSlots"></div>
 <div class="field"><label for="eDays">기간 (일)</label><input type="number" id="eDays" min="1" max="365"></div>
@@ -295,6 +300,33 @@ h2:first-child{margin-top:0}
 <div class="ln"><span>평균 에너지 1당 루타</span><b id="eAvg">–</b></div>
 <div class="ln"><span>하루 에너지 합계 (무료 120 포함)</span><b id="eAll">120</b></div>
 <p class="note" style="margin-top:10px">원화는 루타 코인 1개 = 아카하네 코인 1개, 구매 영수증 기준값(코인 1개 = <span id="eRate">–</span>)으로 바꿨어요. 비용은 공략 사이트(2026년 11월 4일 기준)를 따랐고, 자료마다 회차별 비용이 조금 달라서 게임과 다르면 위에서 고치면 돼요.</p>
+</div>
+</div>
+</section>
+<section class="band" id="tabWi" role="tabpanel" hidden>
+<div class="pick">
+<div class="card">
+<h2>기원 · 철벽의 패자</h2>
+<p class="note">의상이 주요 상품인 박스형 뽑기예요. 보상 13개가 겹치지 않고 하나씩 빠지며, 13회를 다 뽑으면 전부 얻어요. 1회차는 무료이고, 그다음부터는 일반 기원의 종(1개 = 아카하네 코인 10개)이 회차마다 더 들어요. 모험가는 나오지 않아요.</p>
+<label class="fbx"><input type="checkbox" id="wInc"><span><b>구매 플랜에 포함</b> <small>영수증에 기원 내역으로 들어가요</small></span></label>
+<div class="estep"><button type="button" id="wMinus" aria-label="기원 횟수 줄이기">−</button><div><span id="wN">0</span><small>기원 횟수 (최대 13)</small></div><button type="button" id="wPlus" aria-label="기원 횟수 늘리기">+</button></div>
+<div class="wslots" id="wSlots"></div>
+<h2 style="font-size:18px;margin-top:18px">보상 목록</h2>
+<div class="scroll"><table class="wt"><thead><tr><th>보상</th><th class="num">개수</th><th class="num">첫 회 확률</th></tr></thead><tbody id="wRew"></tbody></table></div>
+</div>
+<div class="card">
+<h2>결과</h2>
+<div class="res">
+<div class="hl"><span><svg class="ic" aria-hidden="true"><use href="#i-aka"/></svg>필요 아카하네 코인</span><b id="wCoin">0</b></div>
+<div><span>원화 환산</span><b id="wWon">₩0</b></div>
+<div><span>일반 기원의 종</span><b id="wBell">0개</b></div>
+<div class="hl"><span><svg class="ic" aria-hidden="true"><use href="#i-lim"/></svg>기대 특별 모집권 (평균)</span><b id="wFc">0장</b></div>
+<div><span>아케니아 의상 획득 확률</span><b id="wArk">0%</b></div>
+<div><span>세 의상 모두 획득 확률</span><b id="wAll">0%</b></div>
+</div>
+<div class="ln"><span>모집권 1장당 가격 (평균)</span><b id="wPer">–</b></div>
+<div class="ln"><span>13회 전부 뽑기</span><b>4,740코인 · 특별 모집권 23장</b></div>
+<p class="note" style="margin-top:10px">박스 전체로 보면 특별 모집권 1장에 약 <b id="wFull">–</b>이라 직접 교환(<b id="wDir">–</b>)보다 비싸요. 의상이 갖고 싶을 때만 뽑고, 무료 1회는 꼭 챙기세요. 확률은 공략 사이트(2026년 11월 2일 기준) 수치로 시뮬레이션한 평균이고, 기원이 바뀌면 보상과 비용도 달라질 수 있어요.</p>
 </div>
 </div>
 </section>
@@ -333,7 +365,7 @@ const Z=[["주간 붓 셀렉트",300,0,40,640000,"주 1회",4,"빛나는 붓 40"
 const S=[["주간 모집 세일 (300코인)",300,0,10,8800,"주 2회",8],["모집-셀렉션 (₩28,000)",0,28000,20,28800,"시즌 2회",2]];
 const B=[["선택 안 함",0,""],["펑펑 화로",14500,"SSR 동반자 코지로 + 선택 1 · 육성 소재 · 레벨을 올려야 받음"],["쾅쾅 화로",28000,"펑펑 화로 보상 전부 + 코지로 추가 + 레벨 +10으로 시작 · 직접 구매 가격"],["쾅쾅 화로 (업그레이드)",32000,"펑펑 화로에서 쾅쾅 화로로 업그레이드 · 14,500 + 17,500 = 32,000원 · 직접 구매보다 4,000원 더 냄"]];
 const BP={lim:5,ruta:680,zen:4900000};
-const def={q:{"월정액 플랜":1},s:{},bp:1,own:0,p6480:141000,c6480:8080,iLim:0,iRuta:0,z:{},iInc:false,iPity:0,iG:false,iBan:0,iUsed:false,iOwn:0,iTgt:0,iAvg:62.5,view:"*",tab:"plan",first:false,eN:0,eDays:30,eCost:[50,100,200,200,300],presets:[],pDef:true};
+const def={q:{"월정액 플랜":1},s:{},bp:1,own:0,p6480:141000,c6480:8080,iLim:0,iRuta:0,z:{},iInc:false,iPity:0,iG:false,iBan:0,iUsed:false,iOwn:0,iTgt:0,iAvg:62.5,view:"*",tab:"plan",first:false,eN:0,eDays:30,wN:1,eInc:false,wInc:false,eCost:[50,100,200,200,300],presets:[],pDef:true};
 let st;
 try{let v=localStorage.getItem("mhoCalc2");if(v)st=Object.assign(structuredClone(def),JSON.parse(v));else{st=structuredClone(def);const o=JSON.parse(localStorage.getItem("mhoCalc")||"{}");if(o.presets)st.presets=o.presets}}catch(e){st=structuredClone(def)}
 const save=()=>{try{localStorage.setItem("mhoCalc2",JSON.stringify(st))}catch(e){}};
@@ -366,6 +398,10 @@ P.map(item).forEach(it=>{const q=st.q[it.name]||0;if(!q)return;tot+=q*it.pay;cas
 let brush=0;Z.forEach(z=>{const q=(st.z||{})[z[0]]||0;if(!q)return;tot+=q*(z[1]?z[1]*r:z[2]);cash+=q*z[2];coin+=q*z[1];brush+=q*z[3];zen+=q*z[4]});
 S.forEach(s=>{const q=st.s[s[0]]||0;if(!q)return;tot+=q*(s[1]?s[1]*r:s[2]);cash+=q*s[2];coin+=q*s[1];std+=q*s[3];zen+=q*s[4]});
 const b=B[st.bp]||B[0];if(b[1]){tot+=b[1];cash+=b[1];lim+=BP.lim;ruta+=BP.ruta;zen+=BP.zen}
+let ex="";const exl=(a,b)=>`<div class="ln"><span>${a}</span><b>${b}</b></div>`;
+if(st.eInc&&typeof eCalc==="function"){const e=eCalc();if(e.tot){ruta-=e.tot;ex+=exl("에너지 충전 · 하루 "+e.n+"회 × "+e.d+"일","루타 −"+N(e.tot)+" (≈"+W(e.tot*r)+")")}}
+if(st.wInc&&typeof wCalc==="function"){const w=wCalc();if(w.n){tot+=w.coin*r;coin+=w.coin;lim+=w.fc;ex+=exl("기원 · "+w.n+"회",(w.coin?"코인 "+N(w.coin)+" ("+W(w.coin*r)+")":"무료")+" · 모집권 약 "+N(w.fc,1)+"장")}}
+$("rExtra").innerHTML=ex?'<h2 style="margin-top:18px">추가 내역</h2>'+ex:"";
 const pulls=lim+ruta/150,left=st.own-coin;
 $("hTot").textContent=W(tot);$("hPull").textContent=N(pulls,1)+"회";$("hAvg").textContent=pulls?W(tot/pulls):"–";
 $("mTot").textContent=W(tot);$("mPull").textContent=N(pulls,1)+"회";
@@ -416,7 +452,8 @@ $("jLoad").onclick=()=>jIn($("jText").value);
 const DEF6480=[141000,8080],pd=$("pDef");
 const syncDef=()=>{pd.checked=!!st.pDef;["p6480","c6480"].forEach(id=>$(id).disabled=!!st.pDef);if(st.pDef){st.p6480=DEF6480[0];st.c6480=DEF6480[1];$("p6480").value=st.p6480;$("c6480").value=st.c6480}};
 pd.onchange=()=>{st.pDef=pd.checked;syncDef();rows()};syncDef();
-const setTab=t=>{t=["plan","pick","en"].includes(t)?t:"plan";st.tab=t;[["plan","tabPlan","tbPlan"],["pick","tabPick","tbPick"],["en","tabEn","tbEn"]].forEach(([k,p,b])=>{$(p).hidden=k!==t;$(b).setAttribute("aria-selected",k===t)});document.querySelector(".mob").style.visibility=t==="plan"?"":"hidden";if(t==="en")energy();save()};
+const setTab=t=>{t=["plan","pick","en","wi"].includes(t)?t:"plan";st.tab=t;[["plan","tabPlan","tbPlan"],["pick","tabPick","tbPick"],["en","tabEn","tbEn"],["wi","tabWi","tbWi"]].forEach(([k,p,b])=>{$(p).hidden=k!==t;$(b).setAttribute("aria-selected",k===t)});document.querySelector(".mob").style.visibility=t==="plan"?"":"hidden";if(t==="en")energy();if(t==="wi")wish();save()};
+$("tbWi").onclick=()=>setTab("wi");
 $("tbEn").onclick=()=>setTab("en");
 $("tbPlan").onclick=()=>setTab("plan");$("tbPick").onclick=()=>setTab("pick");
 const ECOST=[50,100,200,200,300];
@@ -429,7 +466,7 @@ $("eDayR").textContent=N(dayR);$("eDayE").textContent="+"+N(n*40);$("eDayW").tex
 const lab=d===1?"하루":d+"일";$("ePerLab").textContent=lab+" 루타 코인";$("ePerW").textContent=lab+" 원화 환산";$("ePerP").textContent=lab+" 못 뽑는 한정 뽑기";
 $("eTotR").textContent=N(dayR*d);$("eTotW").textContent=W(dayR*d*r);$("eTotP").textContent=N(dayR*d/150,1)+"회";
 $("eLast").textContent=n?N(c[n-1]/40,2)+"개":"–";$("eAvg").textContent=n?N(dayR/(n*40),2)+"개":"–";$("eAll").textContent=N(120+n*40);
-$("eRate").textContent="₩"+N(r,2);$("eDays").value=d;save()}
+$("eRate").textContent="₩"+N(r,2);$("eDays").value=d;save();if(st.eInc)calc()}
 $("eMinus").onclick=()=>{st.eN=Math.max(0,(st.eN|0)-1);energy()};
 $("ePlus").onclick=()=>{st.eN=Math.min((st.eCost||ECOST).length,(st.eN|0)+1);energy()};
 $("eSlots").addEventListener("click",e=>{const b=e.target.closest("[data-i]");if(!b)return;const i=+b.dataset.i;st.eN=(st.eN===i)?i-1:i;energy()});
@@ -439,7 +476,28 @@ const eCostUI=()=>{$("eCostIn").innerHTML=(st.eCost||ECOST).map((v,i)=>`<div cla
 $("eCostIn").addEventListener("input",e=>{const i=e.target.dataset.c;if(i==null)return;st.eCost=(st.eCost||ECOST).slice();st.eCost[+i]=Math.max(0,+e.target.value||0);energy()});
 $("eCostReset").onclick=()=>{st.eCost=ECOST.slice();eCostUI();energy()};
 eCostUI();energy();
-setTab(location.hash==="#pickup"?"pick":location.hash==="#energy"?"en":(st.tab||"plan"));
+const WB=[0,6,12,12,24,24,48,48,48,48,68,68,68];
+const WR=[["아케니아 의상 (철벽의 패자)",1,.6,0,1],["랜스 무기 외형",1,.6,0,1],["서포트 동반자 의상",1,1.8,0,1],["특별 모집권 ×5",2,2,5,0],["특별 모집권 ×4",2,5,4,0],["아이콘 테두리",1,8,0,0],["아이콘",1,12,0,0],["스탬프",1,20,0,0],["특별 모집권 ×2",2,10,2,0],["특별 모집권 ×1",1,40,1,0]];
+let WS=null;
+const wSim=()=>{const pool=[];WR.forEach((r,i)=>{for(let k=0;k<r[1];k++)pool.push({i,w:r[2]/r[1],fc:r[3],sk:r[4]})});const T=20000,fc=new Array(14).fill(0),ark=new Array(14).fill(0),all=new Array(14).fill(0);let seed=12345;const rnd=()=>(seed=seed*16807%2147483647)/2147483647;
+for(let t=0;t<T;t++){let left=pool.slice(),f=0,a=0,sk=0;for(let n=1;n<=13;n++){let tw=0;left.forEach(x=>tw+=x.w);let r=rnd()*tw,j=0;for(;j<left.length-1;j++){r-=left[j].w;if(r<=0)break}const x=left.splice(j,1)[0];f+=x.fc;if(x.i===0)a=1;sk+=x.sk;fc[n]+=f;ark[n]+=a;all[n]+=sk===3?1:0}}
+return{fc:fc.map(v=>v/T),ark:ark.map(v=>v/T),all:all.map(v=>v/T)}};
+function wish(){if(!WS)WS=wSim();const n=Math.max(0,Math.min(13,st.wN|0)),r=rate();let cum=0,bells=0;
+$("wSlots").innerHTML=WB.map((b,i)=>{cum+=b;if(i<n)bells+=b;return `<button type="button" class="eslot${i<n?" on":""}" data-w="${i+1}" aria-label="${i+1}회까지 기원"><small>${i+1}회</small><b>${b?N(b*10):"무료"}</b><small>누적 ${N(cum*10)}</small></button>`}).join("");
+$("wRew").innerHTML=WR.map(x=>`<tr class="${x[4]?"sk":""}"><td>${esc(x[0])}</td><td class="num">${x[1]}</td><td class="num">${x[2]}%</td></tr>`).join("");
+const coin=bells*10,fcE=WS.fc[n];
+$("wN").textContent=n;$("wMinus").disabled=n<=0;$("wPlus").disabled=n>=13;
+$("wCoin").textContent=N(coin);$("wWon").textContent=W(coin*r);$("wBell").textContent=N(bells)+"개";
+$("wFc").textContent=N(fcE,1)+"장";$("wArk").textContent=N(WS.ark[n]*100,1)+"%";$("wAll").textContent=N(WS.all[n]*100,1)+"%";
+$("wPer").textContent=coin&&fcE?W(coin*r/fcE):(n?"무료":"–");$("wFull").textContent=W(4740*r/23);$("wDir").textContent=W(150*r);save();if(st.wInc)calc()}
+$("wMinus").onclick=()=>{st.wN=Math.max(0,(st.wN|0)-1);wish()};
+$("wPlus").onclick=()=>{st.wN=Math.min(13,(st.wN|0)+1);wish()};
+$("wSlots").addEventListener("click",e=>{const b=e.target.closest("[data-w]");if(!b)return;const i=+b.dataset.w;st.wN=(st.wN===i)?i-1:i;wish()});
+var eCalc=()=>{const c=(st.eCost||ECOST).map(v=>Math.max(0,+v||0)),n=Math.max(0,Math.min(c.length,st.eN|0)),d=Math.max(1,st.eDays|0);const dayR=c.slice(0,n).reduce((a,b)=>a+b,0);return{n,d,tot:dayR*d}};
+var wCalc=()=>{if(!WS)WS=wSim();const n=Math.max(0,Math.min(13,st.wN|0));let bells=0;for(let i=0;i<n;i++)bells+=WB[i];return{n,coin:bells*10,fc:WS.fc[n]}};
+const eI=$("eInc"),wI=$("wInc");eI.checked=!!st.eInc;wI.checked=!!st.wInc;
+eI.onchange=()=>{st.eInc=eI.checked;calc()};wI.onchange=()=>{st.wInc=wI.checked;calc()};
+setTab(location.hash==="#pickup"?"pick":location.hash==="#energy"?"en":location.hash==="#wish"?"wi":(st.tab||"plan"));
 const ff=$("fFirst");ff.checked=!!st.first;ff.onchange=()=>{st.first=ff.checked;rows()};
 $("pReset").onclick=()=>{st.q={};st.s={};st.z={};st.bp=0;rows()};
 rows();
