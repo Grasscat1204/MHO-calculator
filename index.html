@@ -123,7 +123,7 @@ h2:first-child{margin-top:0}
 .tabs button[aria-selected=true]{color:var(--red);border-bottom-color:var(--red)}
 .tabs button:focus-visible{outline:3px solid var(--gold);outline-offset:-3px}
 .tabs button{flex:none}
-@media(max-width:640px){.tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;padding:10px 16px;overflow:visible;border-bottom:1px solid var(--line)}
+@media(max-width:640px){.tabs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;padding:10px 16px;overflow:visible;border-bottom:1px solid var(--line)}
 .tabs button{min-height:44px;padding:4px 4px;margin:0;border:1px solid var(--line);border-radius:10px;font-size:13px;line-height:1.25;white-space:normal;word-break:keep-all;text-align:center;background:var(--panel)}
 .tabs button[aria-selected=true]{background:var(--red);border-color:var(--red);color:#fff}}
 .fbx{display:flex;align-items:center;gap:10px;min-height:48px;padding:6px 14px;margin:0 0 12px;border:1px solid var(--line);border-radius:10px;background:var(--panel);cursor:pointer}
@@ -158,7 +158,7 @@ h2:first-child{margin-top:0}
 .wt.sk td:nth-child(2){min-width:8em;word-break:keep-all}
 @media(max-width:640px){.wt.sk th:nth-child(4),.wt.sk td:nth-child(4){display:none}.wt.sk input[type=number]{width:4.2em}.wt.sk td,.wt.sk th{padding-left:4px;padding-right:4px}.wt.sk td:nth-child(2){min-width:6.5em}}
 .btn.whale{border-color:#2563eb;color:#1d4ed8;font-weight:700}
-.pick[hidden],.field[hidden],.btn[hidden]{display:none!important}
+[hidden]{display:none!important}
 .btn:disabled{opacity:.4;cursor:default}
 .wsub{margin-bottom:0;padding-bottom:0}
 .wstage{position:relative;display:grid;place-items:center;min-height:200px;margin:14px 0;border-radius:16px;background:radial-gradient(circle at 50% 40%,#3b2a1a,#140d08);color:#fff;overflow:hidden;text-align:center;padding:16px}
@@ -210,6 +210,24 @@ h2:first-child{margin-top:0}
 .ptl button{display:grid;justify-items:center;gap:4px;padding:6px 2px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--ink);font:inherit;font-size:12px;cursor:pointer}
 .ptl .pt{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-weight:800;color:#fff;background:var(--pc,#78716c);overflow:hidden}
 .ptl .pt img{width:100%;height:100%;object-fit:cover}
+#rExtra .ln{align-items:flex-start;gap:10px}
+#rExtra .ln span{flex:none;white-space:nowrap}
+#rExtra .ln b{min-width:0;flex:1;text-align:right;white-space:normal;overflow-wrap:anywhere;font-size:13px}
+.qa{display:grid;gap:16px;max-width:760px}
+.qa .card h2{margin-top:0}
+.qam{font-size:16px;margin:4px 0}
+.qal{font-size:20px;font-weight:800;color:var(--red);text-decoration:none;word-break:break-all}
+.qal:hover{text-decoration:underline}
+.qul{margin:6px 0 0;padding-left:1.2em;line-height:1.7}
+.qlog summary{font-weight:700;font-size:17px}
+.qv{margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
+.qv h3{margin:0 0 4px;font-size:15px;color:var(--mut)}
+.plsub button{display:inline-flex;align-items:center;gap:6px}
+.plsub .si{width:20px;height:20px;flex:none}
+#plPkg>h2:first-child,#plBp>h2:first-child{margin-top:30px}
+.plsub{margin:22px 0 4px;padding-top:14px;border-top:1px solid var(--line)}
+.plsub button{font-size:15px;font-weight:700}
+.cpin{grid-template-columns:1fr!important;padding:0!important;margin-top:14px}
 .cumw{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:24px;max-width:1240px;margin:0 auto}
 @media(max-width:900px){.cumw{grid-template-columns:minmax(0,1fr)}}
 .ctrack{background:var(--line);height:12px;margin:4px 0 12px}.ctrack .fill{background:var(--red)}
@@ -262,7 +280,7 @@ h2:first-child{margin-top:0}
 </div>
 </header>
 <button type="button" class="now" id="nowGo" aria-label="진행 중 픽업 미도리, 모집 시뮬레이션 열기"><span class="pill">진행 중 픽업</span><b>특별 모집 : 미도리</b><span>10월 29일 (목) ~ 11월 27일 (금)</span><span class="go">픽업 시뮬레이션 ›</span></button>
-<nav class="tabs" role="tablist"><button type="button" role="tab" id="tbPlan" aria-controls="tabPlan">구매 플랜</button><button type="button" role="tab" id="tbEn" aria-controls="tabEn">에너지 구매</button><button type="button" role="tab" id="tbWi" aria-controls="tabWi">기원</button><button type="button" role="tab" id="tbSk" aria-controls="tabSk">덧입기</button><button type="button" role="tab" id="tbCp" aria-controls="tabCp">동반자 보물</button><button type="button" role="tab" id="tbPick" aria-controls="tabPick">픽업 돌파 계산기</button><button type="button" role="tab" id="tbCum" aria-controls="tabCum">누적 결제</button></nav>
+<nav class="tabs" role="tablist"><button type="button" role="tab" id="tbPlan" aria-controls="tabPlan">구매 플랜</button><button type="button" role="tab" id="tbWi" aria-controls="tabWi">기원</button><button type="button" role="tab" id="tbPick" aria-controls="tabPick">픽업 돌파 계산기</button><button type="button" role="tab" id="tbCum" aria-controls="tabCum">누적 결제</button><button type="button" role="tab" id="tbQa" aria-controls="tabQa">문의</button></nav>
 <div class="mob"><span>합계 <b id="mTot">₩0</b></span><span>한정 <b id="mPull">0회</b></span></div>
 
 <main class="band" id="tabPlan" role="tabpanel">
@@ -283,6 +301,8 @@ h2:first-child{margin-top:0}
 <textarea id="jText" rows="5" spellcheck="false" aria-label="프리셋 JSON"></textarea>
 <div class="bar-tools"><button class="btn add" type="button" id="jLoad">붙여넣은 JSON 불러오기</button><span class="note" id="jMsg" role="status"></span></div>
 </details>
+<div class="flt plsub" id="plSub"><button type="button" data-pl="pkg" aria-pressed="true"><svg class="si" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="9" width="17" height="11.5" rx="1.5" fill="#dc2626"/><rect x="2.5" y="7" width="19" height="4" rx="1" fill="#ef4444"/><rect x="10.8" y="7" width="2.4" height="13.5" fill="#facc15"/><path d="M12 7C10 3.5 6.5 3.8 7 6c.3 1.2 2.5 1.2 5 1zM12 7c2-3.5 5.5-3.2 5-1-.3 1.2-2.5 1.2-5 1z" fill="#facc15"/></svg>패키지&amp;코인</button><button type="button" data-pl="bp" aria-pressed="false"><svg class="si" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5c1 3.5 5.5 5.5 5.5 11a5.5 5.5 0 0 1-11 0c0-3 1.6-4.4 2.6-5.8.3 1.6 1 2.6 2 3C10.6 7.7 11 5 12 2.5z" fill="#f97316"/><path d="M12 11.5c.7 1.8 2.8 2.7 2.8 5.1a2.8 2.8 0 0 1-5.6 0c0-1.5 1-2.2 1.5-3 .2.7.5 1.1 1 1.3-.2-1.3 0-2.4.3-3.4z" fill="#fde047"/></svg>시즌 패스</button><button type="button" data-pl="cp" aria-pressed="false"><svg class="si" viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="16" rx="4.6" ry="3.9" fill="#a16207"/><circle cx="6.4" cy="10.6" r="2" fill="#a16207"/><circle cx="9.7" cy="6.8" r="2" fill="#a16207"/><circle cx="14.3" cy="6.8" r="2" fill="#a16207"/><circle cx="17.6" cy="10.6" r="2" fill="#a16207"/></svg>동반자 보물</button><button type="button" data-pl="en" aria-pressed="false"><svg class="si" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2c2.6 3.6 6.5 7 6.5 12a6.5 6.5 0 0 1-13 0C5.5 9 9.4 5.6 12 2z" fill="#65a30d"/><path d="M12 7.5c1.6 2.3 3.6 4.4 3.6 7.3a3.6 3.6 0 0 1-7.2 0c0-2.9 2-5 3.6-7.3z" fill="#bef264"/><path d="M12.6 10.5 10.4 15h1.9l-.8 3.2 2.6-4.6h-2z" fill="#3f6212"/></svg>에너지 충전</button><button type="button" data-pl="sk" aria-pressed="false"><svg class="si" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 3.5 3 6.5l2.2 4.2 2.3-1.1V20.5h9V9.6l2.3 1.1L21 6.5l-5.5-3c-.6 1.6-1.9 2.5-3.5 2.5S9.1 5.1 8.5 3.5z" fill="#6366f1"/><path d="M8.5 3.5c.6 1.6 1.9 2.5 3.5 2.5s2.9-.9 3.5-2.5" fill="none" stroke="#c7d2fe" stroke-width="1.2"/></svg>덧입기</button></div>
+<div id="plPkg">
 <h2>전체 효율표</h2>
 <p class="note">한정 1회당 가격이 싼 순서예요. 효율은 6,480 결제 후 직접 교환(코인 150개 = 1회) 대비 배수예요. 루타 코인은 150개 = 1회로 환산했어요.</p>
 <div class="flt" id="flt"></div>
@@ -299,8 +319,92 @@ h2:first-child{margin-top:0}
 <p class="note">계정당 한 번씩만 살 수 있는 60코인 팩이에요. 초보자 팩 I만 루타 코인으로 사요.</p>
 <div class="list" id="list4"></div>
 
-<h2>시즌 패스 (하나만)</h2>
+</div>
+<div id="plBp" hidden>
+<h2>시즌 패스 (화로) 택 1</h2>
+<p class="note">시즌마다 하나만 살 수 있어요. 고른 패스는 영수증에 바로 들어가요.</p>
 <div class="seg" id="bp"></div>
+</div>
+<div id="plSk" hidden>
+<div class="pick cpin">
+<div class="card">
+<h2>덧입기 코인 효율</h2>
+<p class="note">상점 덧입기 탭에서 아카하네 코인으로 사는 외형이에요. 보는 방식을 가격 환산(원화 가격이 싼 순서)과 수집 포인트 효율(1점당 가격이 싼 순서) 중에서 고를 수 있어요.</p>
+<p class="note">체크한 외형은 구매 플랜 영수증에 바로 들어가요.</p>
+<div class="flt" id="skView"></div>
+<label class="fbx"><input type="checkbox" id="skAll"><span><b>전체 선택</b> <small>코인으로 사는 외형 10개를 한 번에 체크하거나 풀어요</small></span></label>
+<div class="scroll"><table class="wt sk"><thead><tr><th></th><th>외형</th><th class="num">코인</th><th class="num">원화</th><th class="num">수집 포인트</th><th class="num" id="skH">1점당</th></tr></thead><tbody id="skList"></tbody></table></div>
+<p class="note">수집 포인트는 게임 화면 기준이에요.</p>
+<h2 style="font-size:18px;margin-top:18px">코인으로 못 사는 덧입기</h2>
+<div class="scroll"><table class="wt"><thead><tr><th>외형</th><th>종류</th><th>얻는 곳</th></tr></thead><tbody id="skNo"></tbody></table></div>
+</div>
+<div class="card">
+<h2>결과</h2>
+<div class="res">
+<div class="hl"><span><svg class="ic" aria-hidden="true"><use href="#i-aka"/></svg>필요 아카하네 코인</span><b id="skCoin">0</b></div>
+<div><span>원화 환산</span><b id="skWon">₩0</b></div>
+<div class="hl"><span>얻는 수집 포인트</span><b id="skPt">0</b></div>
+<div><span>1점당 평균</span><b id="skAvg">–</b></div>
+</div>
+<div class="ln"><span>고른 외형</span><b id="skN">0개</b></div>
+<p class="note" style="margin-top:10px">원화는 구매 영수증 기준값(코인 1개 = <span id="skRate">–</span>)으로 바꿨어요. 넘치는 영감 무기(60코인 · 100점)가 포인트당 가장 싸고, 세트는 비싼 대신 외형 전체가 바뀌어요. 가격과 포인트는 게임 화면(2026년 11월 25일)을 따랐고, 유앵 삼현산화의 500점은 같은 엄선 시리즈 세트인 흑영 도사 기준 추정이에요.</p>
+</div>
+</div>
+</div>
+<div id="plEn" hidden>
+<div class="pick cpin">
+<div class="card">
+<h2>에너지 충전</h2>
+<p class="note">루타 코인으로 1회에 에너지 40씩, 하루 최대 5회 충전해요. 회차마다 비용이 올라요. 매일 아침 무료로 에너지 120이 차요.</p>
+<label class="fbx"><input type="checkbox" id="eInc"><span><b>구매 플랜에 포함</b> <small>영수증에 에너지 충전 내역으로 들어가요</small></span></label>
+<div class="estep"><button type="button" id="eMinus" aria-label="충전 횟수 줄이기">−</button><div><span id="eN">0</span><small>하루 충전 횟수</small></div><button type="button" id="ePlus" aria-label="충전 횟수 늘리기">+</button></div>
+<div class="eslots" id="eSlots"></div>
+<div class="field"><label for="eDays">기간 (일)</label><input type="number" id="eDays" min="1" max="365"></div>
+<div class="bar-tools"><button class="btn" type="button" data-d="1">하루</button><button class="btn" type="button" data-d="7">1주</button><button class="btn" type="button" data-d="30">30일</button></div>
+<details class="pj"><summary>회차별 루타 비용 고치기</summary><div id="eCostIn" style="margin-top:8px"></div><button class="btn" type="button" id="eCostReset">기본 비용으로</button></details>
+</div>
+<div class="card">
+<h2>결과</h2>
+<div class="res">
+<div class="hl"><span><svg class="ic" aria-hidden="true"><use href="#i-ruta"/></svg>하루 루타 코인</span><b id="eDayR">0</b></div>
+<div><span>하루 추가 에너지</span><b id="eDayE">+0</b></div>
+<div><span>하루 원화 환산</span><b id="eDayW">₩0</b></div>
+<div class="hl"><span id="ePerLab">30일 루타 코인</span><b id="eTotR">0</b></div>
+<div><span id="ePerW">30일 원화 환산</span><b id="eTotW">₩0</b></div>
+<div><span id="ePerP">30일 못 뽑는 한정 뽑기</span><b id="eTotP">0회</b></div>
+</div>
+<div class="ln"><span>마지막 회차 에너지 1당 루타</span><b id="eLast">–</b></div>
+<div class="ln"><span>평균 에너지 1당 루타</span><b id="eAvg">–</b></div>
+<div class="ln"><span>하루 에너지 합계 (무료 120 포함)</span><b id="eAll">120</b></div>
+<p class="note" style="margin-top:10px">원화는 루타 코인 1개 = 아카하네 코인 1개, 구매 영수증 기준값(코인 1개 = <span id="eRate">–</span>)으로 바꿨어요. 비용은 공략 사이트(2026년 11월 4일 기준)를 따랐고, 자료마다 회차별 비용이 조금 달라서 게임과 다르면 위에서 고치면 돼요.</p>
+</div>
+</div>
+</div>
+<div id="plCp" hidden>
+<div class="pick cpin">
+<div class="card">
+<h2>동반자 보물</h2>
+<p class="note">₩28,000 현금 상품이에요. 모험 랭크가 오를 때마다 보상을 받고, 사면 프리미엄 줄이 열려요. 무료 줄은 사지 않아도 받아요. 보상은 모험 랭크 50까지 있고, 산 뒤 지난 랭크 보상은 일괄 수령으로 한 번에 받아요.</p>
+<label class="fbx"><input type="checkbox" id="cpInc"><span><b>구매 플랜에 포함</b> <small>영수증에 동반자 보물 내역으로 들어가요 (랭크 50 기준 프리미엄 보상 전부)</small></span></label>
+<div class="scroll"><table class="wt"><thead><tr><th>랭크</th><th>무료</th><th>프리미엄</th></tr></thead><tbody id="cpRew"></tbody></table></div>
+</div>
+<div class="card">
+<h2>결과</h2>
+<div class="res">
+<div class="hl"><span>한정 1회당 가격</span><b id="cpPer">–</b></div>
+<div><span>효율 (직접 교환 대비)</span><b id="cpEff">–</b></div>
+<div><span>한정 뽑기 환산</span><b id="cpPull">–</b></div>
+<div><span><svg class="ic" aria-hidden="true"><use href="#i-std"/></svg>상시 모집권</span><b>20장</b></div>
+</div>
+<div class="ln"><span>가격</span><b>₩28,000</b></div>
+<div class="ln"><span>프리미엄 보상 합계</span><b>루타 1,280 · 한정권 15 · 상시권 20</b></div>
+<div class="ln"><span>무료 보상 합계</span><b>제니 1.68만 · 상시권 10</b></div>
+<div class="ln"><span>필요 모험 랭크</span><b>50 (모든 보상 기준)</b></div>
+<div class="ln"><span>전체 효율표에 넣으면</span><b id="cpRk">–</b></div>
+<p class="note" style="margin-top:10px">한정 뽑기 환산은 한정권 15장 + 루타 1,280개(150개 = 1회)예요. 상시권은 가격에 넣지 않았어요. 보상 구성은 게임 화면(2026년 11월 25일)을 따랐어요.</p>
+</div>
+</div>
+</div>
 </section>
 
 <aside class="rc">
@@ -394,35 +498,6 @@ h2:first-child{margin-top:0}
 </div>
 </section>
 
-<section class="band" id="tabEn" role="tabpanel" hidden>
-<div class="pick">
-<div class="card">
-<h2>루타 코인 에너지 충전</h2>
-<p class="note">루타 코인으로 1회에 에너지 40씩, 하루 최대 5회 충전해요. 회차마다 비용이 올라요. 매일 아침 무료로 에너지 120이 차요.</p>
-<label class="fbx"><input type="checkbox" id="eInc"><span><b>구매 플랜에 포함</b> <small>영수증에 에너지 충전 내역으로 들어가요</small></span></label>
-<div class="estep"><button type="button" id="eMinus" aria-label="충전 횟수 줄이기">−</button><div><span id="eN">0</span><small>하루 충전 횟수</small></div><button type="button" id="ePlus" aria-label="충전 횟수 늘리기">+</button></div>
-<div class="eslots" id="eSlots"></div>
-<div class="field"><label for="eDays">기간 (일)</label><input type="number" id="eDays" min="1" max="365"></div>
-<div class="bar-tools"><button class="btn" type="button" data-d="1">하루</button><button class="btn" type="button" data-d="7">1주</button><button class="btn" type="button" data-d="30">30일</button></div>
-<details class="pj"><summary>회차별 루타 비용 고치기</summary><div id="eCostIn" style="margin-top:8px"></div><button class="btn" type="button" id="eCostReset">기본 비용으로</button></details>
-</div>
-<div class="card">
-<h2>결과</h2>
-<div class="res">
-<div class="hl"><span><svg class="ic" aria-hidden="true"><use href="#i-ruta"/></svg>하루 루타 코인</span><b id="eDayR">0</b></div>
-<div><span>하루 추가 에너지</span><b id="eDayE">+0</b></div>
-<div><span>하루 원화 환산</span><b id="eDayW">₩0</b></div>
-<div class="hl"><span id="ePerLab">30일 루타 코인</span><b id="eTotR">0</b></div>
-<div><span id="ePerW">30일 원화 환산</span><b id="eTotW">₩0</b></div>
-<div><span id="ePerP">30일 못 뽑는 한정 뽑기</span><b id="eTotP">0회</b></div>
-</div>
-<div class="ln"><span>마지막 회차 에너지 1당 루타</span><b id="eLast">–</b></div>
-<div class="ln"><span>평균 에너지 1당 루타</span><b id="eAvg">–</b></div>
-<div class="ln"><span>하루 에너지 합계 (무료 120 포함)</span><b id="eAll">120</b></div>
-<p class="note" style="margin-top:10px">원화는 루타 코인 1개 = 아카하네 코인 1개, 구매 영수증 기준값(코인 1개 = <span id="eRate">–</span>)으로 바꿨어요. 비용은 공략 사이트(2026년 11월 4일 기준)를 따랐고, 자료마다 회차별 비용이 조금 달라서 게임과 다르면 위에서 고치면 돼요.</p>
-</div>
-</div>
-</section>
 <section class="band" id="tabWi" role="tabpanel" hidden>
 <div class="pick wsub"><div class="flt" id="wiSub" style="grid-column:1/-1;margin:0"><button type="button" data-ws="calc" aria-pressed="true">계산</button><button type="button" data-ws="sim" aria-pressed="false">시뮬레이션</button></div></div>
 <div class="pick" id="wiCalc">
@@ -473,54 +548,23 @@ h2:first-child{margin-top:0}
 </div>
 </div>
 </section>
-<section class="band" id="tabCp" role="tabpanel" hidden>
-<div class="pick">
+<section class="band" id="tabQa" role="tabpanel" hidden>
+<div class="qa">
 <div class="card">
-<h2>동반자 보물</h2>
-<p class="note">₩28,000 현금 상품이에요. 모험 랭크가 오를 때마다 보상을 받고, 사면 프리미엄 줄이 열려요. 무료 줄은 사지 않아도 받아요. 보상은 모험 랭크 50까지 있고, 산 뒤 지난 랭크 보상은 일괄 수령으로 한 번에 받아요.</p>
-<label class="fbx"><input type="checkbox" id="cpInc"><span><b>구매 플랜에 포함</b> <small>영수증에 동반자 보물 내역으로 들어가요 (랭크 50 기준 프리미엄 보상 전부)</small></span></label>
-<div class="scroll"><table class="wt"><thead><tr><th>랭크</th><th>무료</th><th>프리미엄</th></tr></thead><tbody id="cpRew"></tbody></table></div>
-</div>
-<div class="card">
-<h2>결과</h2>
-<div class="res">
-<div class="hl"><span>한정 1회당 가격</span><b id="cpPer">–</b></div>
-<div><span>효율 (직접 교환 대비)</span><b id="cpEff">–</b></div>
-<div><span>한정 뽑기 환산</span><b id="cpPull">–</b></div>
-<div><span><svg class="ic" aria-hidden="true"><use href="#i-std"/></svg>상시 모집권</span><b>20장</b></div>
-</div>
-<div class="ln"><span>가격</span><b>₩28,000</b></div>
-<div class="ln"><span>프리미엄 보상 합계</span><b>루타 1,280 · 한정권 15 · 상시권 20</b></div>
-<div class="ln"><span>무료 보상 합계</span><b>제니 1.68만 · 상시권 10</b></div>
-<div class="ln"><span>필요 모험 랭크</span><b>50 (모든 보상 기준)</b></div>
-<div class="ln"><span>전체 효율표에 넣으면</span><b id="cpRk">–</b></div>
-<p class="note" style="margin-top:10px">한정 뽑기 환산은 한정권 15장 + 루타 1,280개(150개 = 1회)예요. 상시권은 가격에 넣지 않았어요. 보상 구성은 게임 화면(2026년 11월 25일)을 따랐어요.</p>
-</div>
-</div>
-</section>
-<section class="band" id="tabSk" role="tabpanel" hidden>
-<div class="pick">
-<div class="card">
-<h2>덧입기 코인 효율</h2>
-<p class="note">상점 덧입기 탭에서 아카하네 코인으로 사는 외형이에요. 보는 방식을 가격 환산(원화 가격이 싼 순서)과 수집 포인트 효율(1점당 가격이 싼 순서) 중에서 고를 수 있어요.</p>
-<p class="note">체크한 외형은 구매 플랜 영수증에 바로 들어가요.</p>
-<div class="flt" id="skView"></div>
-<label class="fbx"><input type="checkbox" id="skAll"><span><b>전체 선택</b> <small>코인으로 사는 외형 10개를 한 번에 체크하거나 풀어요</small></span></label>
-<div class="scroll"><table class="wt sk"><thead><tr><th></th><th>외형</th><th class="num">코인</th><th class="num">원화</th><th class="num">수집 포인트</th><th class="num" id="skH">1점당</th></tr></thead><tbody id="skList"></tbody></table></div>
-<p class="note">수집 포인트는 게임 화면 기준이에요.</p>
-<h2 style="font-size:18px;margin-top:18px">코인으로 못 사는 덧입기</h2>
-<div class="scroll"><table class="wt"><thead><tr><th>외형</th><th>종류</th><th>얻는 곳</th></tr></thead><tbody id="skNo"></tbody></table></div>
+<h2>문의</h2>
+<p class="qam">오류 &amp; 수정 제보 받아요.</p>
+<p><a class="qal" href="mailto:fre3578@gmail.com">fre3578@gmail.com</a></p>
 </div>
 <div class="card">
-<h2>결과</h2>
-<div class="res">
-<div class="hl"><span><svg class="ic" aria-hidden="true"><use href="#i-aka"/></svg>필요 아카하네 코인</span><b id="skCoin">0</b></div>
-<div><span>원화 환산</span><b id="skWon">₩0</b></div>
-<div class="hl"><span>얻는 수집 포인트</span><b id="skPt">0</b></div>
-<div><span>1점당 평균</span><b id="skAvg">–</b></div>
+<h2>현재 수정 필요 사항</h2>
+<ul class="qul"><li>아카하네 코인 980코인 · 60코인 상품의 첫 결제 이후 추가 금액 반영 필요 (제보 바람)</li></ul>
 </div>
-<div class="ln"><span>고른 외형</span><b id="skN">0개</b></div>
-<p class="note" style="margin-top:10px">원화는 구매 영수증 기준값(코인 1개 = <span id="skRate">–</span>)으로 바꿨어요. 넘치는 영감 무기(60코인 · 100점)가 포인트당 가장 싸고, 세트는 비싼 대신 외형 전체가 바뀌어요. 가격과 포인트는 게임 화면(2026년 11월 25일)을 따랐고, 유앵 삼현산화의 500점은 같은 엄선 시리즈 세트인 흑영 도사 기준 추정이에요.</p>
+<div class="card">
+<details class="pj qlog"><summary>업데이트 로그</summary>
+<div class="qv"><h3>26.11.24</h3><ul class="qul"><li>초회 보너스 체크란 추가</li><li>에너지 충전 비용 계산 추가</li></ul></div>
+<div class="qv"><h3>26.11.25</h3><ul class="qul"><li>재화 전용 팩 추가</li><li>기원 탭, 누적 결제 탭 추가</li><li>덧입기 탭, 픽업·기원 시뮬레이터 추가</li></ul></div>
+<div class="qv"><h3>26.11.26</h3><ul class="qul"><li>구매 플랜에 하위 탭 추가 (패키지&amp;코인 · 시즌 패스 · 동반자 보물 · 에너지 충전 · 덧입기)</li><li>하위 탭 아이콘 추가</li><li>패키지 탭 이름을 패키지&amp;코인으로, 효율표의 결제 분류·꼬리표를 코인 구매로 변경</li><li>시즌 패스 제목을 시즌 패스 (화로) 택 1로 변경, 하위 탭 상단 간격 정리</li><li>문의 탭 추가</li><li>프리셋 이름 입력칸이 처음부터 열려 있던 오류 수정</li><li>영수증 추가 내역 줄바꿈 수정</li></ul></div>
+</details>
 </div>
 </div>
 </section>
@@ -548,7 +592,7 @@ h2:first-child{margin-top:0}
 </div>
 </div>
 </section>
-<footer class="band foot" style="padding-top:0">SSR 0.6%, 90회 안에 SSR 확정, SSR의 50%가 픽업, 놓치면 다음 SSR은 픽업 확정, 배너당 1회 120회 픽업 확정. 돌파 = 보유 장수 − 1. 월정액·시즌 패스 원화 가격 일부와 월간 팩 구성은 추정·공략 사이트 기준이라 게임에서 확인하세요. 첫 결제 2배 보너스는 "초회 보너스 포함"을 켰을 때만 코인 결제 상품에 반영돼요. 동반자 보물·덧입기·초보자 팩은 게임 화면 기준이에요. 누적 결제 보너스는 빠져 있어요. 입력값은 이 브라우저에만 저장돼요.<span class="upd">업데이트 2026년 11월 25일</span></footer>
+<footer class="band foot" style="padding-top:0">SSR 0.6%, 90회 안에 SSR 확정, SSR의 50%가 픽업, 놓치면 다음 SSR은 픽업 확정, 배너당 1회 120회 픽업 확정. 돌파 = 보유 장수 − 1. 월정액·시즌 패스 원화 가격 일부와 월간 팩 구성은 추정·공략 사이트 기준이라 게임에서 확인하세요. 첫 결제 2배 보너스는 "초회 보너스 포함"을 켰을 때만 코인 결제 상품에 반영돼요. 동반자 보물·덧입기·초보자 팩은 게임 화면 기준이에요. 누적 결제 보너스는 빠져 있어요. 입력값은 이 브라우저에만 저장돼요.<span class="upd">업데이트 2026년 11월 26일</span></footer>
 
 <script>
 {
@@ -609,9 +653,9 @@ const all=P.map(item).sort((a,b)=>a.per-b.per),direct=150*rate();
 all.forEach((it,i)=>it.rank=i+1);
 const types=[...new Set(P.map(p=>p[1]))];
 const v=types.includes(st.view)?st.view:"*";
-$("flt").innerHTML=[["*","전체",all.length],...types.map(t=>[t,t,all.filter(x=>x.type===t).length])].map(([k,l,c])=>`<button type="button" data-t="${esc(k)}" aria-pressed="${v===k}">${esc(l)} <span class="cnt">${c}</span></button>`).join("");
+$("flt").innerHTML=[["*","전체",all.length],...types.map(t=>[t,t==="결제"?"코인 구매":t,all.filter(x=>x.type===t).length])].map(([k,l,c])=>`<button type="button" data-t="${esc(k)}" aria-pressed="${v===k}">${esc(l)} <span class="cnt">${c}</span></button>`).join("");
 const its=v==="*"?all:all.filter(it=>it.type===v);
-$("list").innerHTML='<div class="row head"><span>순위</span><span>상품</span><span class="num">실 결제</span><span class="num">한정 뽑기</span><span class="num">1회당</span><span class="num">구매 횟수</span></div>'+(its.length?"":'<div class="empty">이 종류에는 상품이 없어요.</div>')+its.map(it=>{const q=st.q[it.name]||0,eff=direct/it.per;return `<div class="row${q?" on":""}${it.rank<=3?" best":""}${eff<1?" weak":""}"><span class="rk">${it.rank}</span><span class="nm"><b>${esc(it.name)}</b><span class="tag">${esc(it.type)}</span><small>${desc(it)}</small><span class="mx">${it.pay?W(it.pay):"무료"} · ${N(it.pulls,1)}회 · 1회 ${W(it.per)} · ${isFinite(eff)?N(eff,2)+"배":"무료"}</span></span><span class="num c1">${it.pay?W(it.pay):"무료"}${it.coin?`<small style="display:block;color:var(--mut);font-size:12px"><svg class="ic" aria-hidden="true"><use href="#i-aka"/></svg>${N(it.coin)}</small>`:""}</span><span class="num c2">${N(it.pulls,1)}회</span><span class="num c3"><span class="pp">${W(it.per)}</span><span style="display:block;font-size:12px;color:var(--mut)">${isFinite(eff)?N(eff,2)+"배":"무료"}</span><div class="eff"><i style="width:${Math.min(100,eff/3*100)}%"></i></div></span><span class="st" data-k="q" data-n="${esc(it.name)}" data-m="${it.max}"><button aria-label="줄이기" ${q<=0?"disabled":""}>−</button><span>${q}</span><button aria-label="늘리기" ${q>=it.max?"disabled":""}>+</button></span></div>`}).join("");
+$("list").innerHTML='<div class="row head"><span>순위</span><span>상품</span><span class="num">실 결제</span><span class="num">한정 뽑기</span><span class="num">1회당</span><span class="num">구매 횟수</span></div>'+(its.length?"":'<div class="empty">이 종류에는 상품이 없어요.</div>')+its.map(it=>{const q=st.q[it.name]||0,eff=direct/it.per;return `<div class="row${q?" on":""}${it.rank<=3?" best":""}${eff<1?" weak":""}"><span class="rk">${it.rank}</span><span class="nm"><b>${esc(it.name)}</b><span class="tag">${it.type==="결제"?"코인 구매":esc(it.type)}</span><small>${desc(it)}</small><span class="mx">${it.pay?W(it.pay):"무료"} · ${N(it.pulls,1)}회 · 1회 ${W(it.per)} · ${isFinite(eff)?N(eff,2)+"배":"무료"}</span></span><span class="num c1">${it.pay?W(it.pay):"무료"}${it.coin?`<small style="display:block;color:var(--mut);font-size:12px"><svg class="ic" aria-hidden="true"><use href="#i-aka"/></svg>${N(it.coin)}</small>`:""}</span><span class="num c2">${N(it.pulls,1)}회</span><span class="num c3"><span class="pp">${W(it.per)}</span><span style="display:block;font-size:12px;color:var(--mut)">${isFinite(eff)?N(eff,2)+"배":"무료"}</span><div class="eff"><i style="width:${Math.min(100,eff/3*100)}%"></i></div></span><span class="st" data-k="q" data-n="${esc(it.name)}" data-m="${it.max}"><button aria-label="줄이기" ${q<=0?"disabled":""}>−</button><span>${q}</span><button aria-label="늘리기" ${q>=it.max?"disabled":""}>+</button></span></div>`}).join("");
 $("list3").innerHTML=Z.map(z=>{const pay=z[1]?z[1]*rate():z[2],q=(st.z||{})[z[0]]||0,per=pay?pay/(z[4]/10000):0;return `<div class="row${q?" on":""}"><span class="rk">·</span><span class="nm"><b>${esc(z[0])}</b><small>제니 ${zf(z[4])}${z[3]?" · 빛나는 붓 "+z[3]:""} · ${esc(z[5])}</small><span class="mx">${pay?W(pay):"무료"} · 제니 ${zf(z[4])} · 1만당 ${pay?W(per):"무료"}</span></span><span class="num c1">${pay?W(pay):"무료"}${z[1]?`<small style="display:block;color:var(--mut);font-size:12px">${IC("aka")}${N(z[1])}</small>`:""}</span><span class="num c2">제니 ${zf(z[4])}</span><span class="num c3"><span class="pp">${pay?W(per):"무료"}</span><span style="display:block;font-size:12px;color:var(--mut)">제니 1만당</span></span><span class="st" data-k="z" data-n="${esc(z[0])}" data-m="${z[6]}"><button aria-label="줄이기" ${q<=0?"disabled":""}>−</button><span>${q}</span><button aria-label="늘리기" ${q>=z[6]?"disabled":""}>+</button></span></div>`}).join("");
 $("list4").innerHTML=NB.map(x=>{const q=(st.nb||{})[x[0]]||0,pay=x[2]*rate(),n=x[3]||x[4],per=pay/n,cur=x[1]==="aka"?IC("aka")+"아카하네 "+x[2]:IC("ruta")+"루타 "+x[2],got=x[3]?IC("lim")+"한정권 "+x[3]:IC("std")+"상시권 "+x[4],eff=x[3]?150*rate()/per:0;return `<div class="row${q?" on":""}"><span class="rk">·</span><span class="nm"><b>${esc(x[0])}</b><span class="tag">1회</span><small>${got} · ${cur}${x[1]==="ruta"?" (≈"+W(pay)+")":""}</small><span class="mx">${W(pay)} · ${x[3]?"한정":"상시"} ${n}회 · 1회 ${W(per)}${eff?" · "+N(eff,2)+"배":""}</span></span><span class="num c1">${x[1]==="aka"?W(pay):"≈"+W(pay)}<small style="display:block;color:var(--mut);font-size:12px">${cur}</small></span><span class="num c2">${x[3]?"한정":"상시"} ${n}회</span><span class="num c3"><span class="pp">${W(per)}</span><span style="display:block;font-size:12px;color:var(--mut)">${eff?N(eff,2)+"배":"상시 1회당"}</span></span><span class="st" data-k="nb" data-n="${esc(x[0])}" data-m="1"><button aria-label="줄이기" ${q<=0?"disabled":""}>−</button><span>${q}</span><button aria-label="늘리기" ${q>=1?"disabled":""}>+</button></span></div>`}).join("");
 $("list2").innerHTML=S.map(s=>{const pay=s[1]?s[1]*rate():s[2],q=st.s[s[0]]||0;return `<div class="row${q?" on":""}"><span class="rk">·</span><span class="nm"><b>${esc(s[0])}</b><small><svg class="ic" aria-hidden="true"><use href="#i-std"/></svg>상시권 ${s[3]} · 제니 ${N(s[4])} · ${esc(s[5])}</small><span class="mx">${W(pay)} · 상시 1회 ${W(pay/s[3])}</span></span><span class="num c1">${W(pay)}</span><span class="num c2">상시 ${s[3]}회</span><span class="num c3"><span class="pp">${W(pay/s[3])}</span></span><span class="st" data-k="s" data-n="${esc(s[0])}" data-m="${s[6]}"><button aria-label="줄이기" ${q<=0?"disabled":""}>−</button><span>${q}</span><button aria-label="늘리기" ${q>=s[6]?"disabled":""}>+</button></span></div>`}).join("");
@@ -683,10 +727,10 @@ $("jLoad").onclick=()=>jIn($("jText").value);
 const DEF6480=[141000,8080],pd=$("pDef");
 const syncDef=()=>{pd.checked=!!st.pDef;["p6480","c6480"].forEach(id=>$(id).disabled=!!st.pDef);if(st.pDef){st.p6480=DEF6480[0];st.c6480=DEF6480[1];$("p6480").value=st.p6480;$("c6480").value=st.c6480}};
 pd.onchange=()=>{st.pDef=pd.checked;syncDef();rows()};syncDef();
-const setTab=t=>{t=["plan","pick","en","wi","cp","sk","cum"].includes(t)?t:"plan";st.tab=t;[["plan","tabPlan","tbPlan"],["pick","tabPick","tbPick"],["en","tabEn","tbEn"],["wi","tabWi","tbWi"],["cp","tabCp","tbCp"],["sk","tabSk","tbSk"],["cum","tabCum","tbCum"]].forEach(([k,p,b])=>{$(p).hidden=k!==t;$(b).setAttribute("aria-selected",k===t)});document.querySelector(".mob").style.visibility=t==="plan"?"":"hidden";if(t==="en")energy();if(t==="wi")wish();if(t==="cum")cum();if(t==="cp")cpR();if(t==="sk")skR();save()};
-$("tbCum").onclick=()=>setTab("cum");$("tbCp").onclick=()=>setTab("cp");$("tbSk").onclick=()=>setTab("sk");
+const setTab=t=>{t=["plan","pick","wi","cum","qa"].includes(t)?t:"plan";st.tab=t;[["plan","tabPlan","tbPlan"],["pick","tabPick","tbPick"],["wi","tabWi","tbWi"],["qa","tabQa","tbQa"],["cum","tabCum","tbCum"]].forEach(([k,p,b])=>{$(p).hidden=k!==t;$(b).setAttribute("aria-selected",k===t)});document.querySelector(".mob").style.visibility=t==="plan"?"":"hidden";if(t==="wi")wish();if(t==="cum")cum();save()};
+$("tbCum").onclick=()=>setTab("cum");$("tbQa").onclick=()=>setTab("qa");
 $("tbWi").onclick=()=>setTab("wi");
-$("tbEn").onclick=()=>setTab("en");
+
 $("tbPlan").onclick=()=>setTab("plan");$("tbPick").onclick=()=>setTab("pick");
 const ECOST=[50,100,200,200,300];
 function energy(){const c=(st.eCost||ECOST).map(v=>Math.max(0,+v||0)),n=Math.max(0,Math.min(c.length,st.eN|0)),d=Math.max(1,st.eDays|0),r=rate();
@@ -703,7 +747,7 @@ $("eMinus").onclick=()=>{st.eN=Math.max(0,(st.eN|0)-1);energy()};
 $("ePlus").onclick=()=>{st.eN=Math.min((st.eCost||ECOST).length,(st.eN|0)+1);energy()};
 $("eSlots").addEventListener("click",e=>{const b=e.target.closest("[data-i]");if(!b)return;const i=+b.dataset.i;st.eN=(st.eN===i)?i-1:i;energy()});
 $("eDays").addEventListener("input",e=>{st.eDays=Math.max(1,Math.min(365,+e.target.value||1));energy()});
-document.querySelectorAll("#tabEn [data-d]").forEach(b=>b.onclick=()=>{st.eDays=+b.dataset.d;energy()});
+document.querySelectorAll("#plEn [data-d]").forEach(b=>b.onclick=()=>{st.eDays=+b.dataset.d;energy()});
 const eCostUI=()=>{$("eCostIn").innerHTML=(st.eCost||ECOST).map((v,i)=>`<div class="field"><label for="ec${i}">${i+1}회차 루타</label><input type="number" id="ec${i}" min="0" step="10" value="${+v||0}" data-c="${i}"></div>`).join("")};
 $("eCostIn").addEventListener("input",e=>{const i=e.target.dataset.c;if(i==null)return;st.eCost=(st.eCost||ECOST).slice();st.eCost[+i]=Math.max(0,+e.target.value||0);energy()});
 $("eCostReset").onclick=()=>{st.eCost=ECOST.slice();eCostUI();energy()};
@@ -786,6 +830,9 @@ $("pkReset").onclick=()=>{pkNew();$("pkTgMsg").textContent="";const s_=$("pkStag
 const pkSub=k=>{st.pSub=k==="sim"?"sim":"calc";$("pkCalc").hidden=st.pSub!=="calc";$("pkSim").hidden=st.pSub!=="sim";document.querySelectorAll("#pkSub [data-ps]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.ps===st.pSub));if(st.pSub==="sim"){if(!PK||!PK.n)pkNew();pkRender()}save()};
 $("pkSub").addEventListener("click",e=>{const b=e.target.closest("[data-ps]");if(b)pkSub(b.dataset.ps)});
 pkSub("calc");
+const plSub=k=>{st.plSub=["pkg","bp","cp","sk","en"].includes(k)?k:"pkg";[["pkg","plPkg"],["bp","plBp"],["cp","plCp"],["sk","plSk"],["en","plEn"]].forEach(([a,id])=>$(id).hidden=a!==st.plSub);document.querySelectorAll("#plSub [data-pl]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.pl===st.plSub));if(st.plSub==="cp")cpR();if(st.plSub==="sk")skR();if(st.plSub==="en")energy();save()};
+$("plSub").addEventListener("click",e=>{const b=e.target.closest("[data-pl]");if(b)plSub(b.dataset.pl)});
+plSub(location.hash==="#companion"?"cp":location.hash==="#skins"?"sk":location.hash==="#energy"?"en":"pkg");
 $("nowGo").onclick=()=>{setTab("pick");pkSub("sim");$("tabPick").scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"})};
 var eCalc=()=>{const c=(st.eCost||ECOST).map(v=>Math.max(0,+v||0)),n=Math.max(0,Math.min(c.length,st.eN|0)),d=Math.max(1,st.eDays|0);const dayR=c.slice(0,n).reduce((a,b)=>a+b,0);return{n,d,tot:dayR*d}};
 var wCalc=()=>{if(!WS)WS=wSim();const n=Math.max(0,Math.min(13,st.wN|0));let bells=0;for(let i=0;i<n;i++)bells+=WB[i];return{n,coin:bells*10,fc:WS.fc[n]}};
@@ -818,7 +865,7 @@ $("skNo").innerHTML=SKN.map(x=>`<tr><td>${esc(x[0])}</td><td>${esc(x[1])}</td><t
 $("skList").addEventListener("change",e=>{const c=e.target.dataset.s,p=e.target.dataset.p;if(c!=null){st.sk=st.sk||{};const n=SK[+c][0];if(e.target.checked)st.sk[n]=1;else delete st.sk[n];skSum()}else if(p!=null)skR()});
 $("skView").addEventListener("click",e=>{const b=e.target.closest("[data-v]");if(!b)return;st.skView=b.dataset.v;skR()});
 $("skAll").onchange=e=>{st.sk={};if(e.target.checked)SK.forEach(x=>st.sk[x[0]]=1);skR()};
-setTab(location.hash==="#pickup"?"pick":location.hash==="#energy"?"en":location.hash==="#wish"?"wi":location.hash==="#cumulative"?"cum":location.hash==="#companion"?"cp":location.hash==="#skins"?"sk":(st.tab||"plan"));
+setTab(location.hash==="#pickup"?"pick":location.hash==="#energy"?"plan":location.hash==="#wish"?"wi":location.hash==="#cumulative"?"cum":location.hash==="#companion"?"plan":location.hash==="#skins"?"plan":location.hash==="#contact"?"qa":(st.tab||"plan"));
 const ff=$("fFirst");ff.checked=!!st.first;ff.onchange=()=>{st.first=ff.checked;rows()};
 const syncX=()=>{$("cInc").checked=!!st.cInc;$("eInc").checked=!!st.eInc;$("wInc").checked=!!st.wInc;$("cpInc").checked=!!st.cpInc;energy();wish();skR()};
 $("pReset").onclick=()=>{st.q={};st.s={};st.z={};st.nb={};st.bp=0;st.eN=0;st.eInc=true;st.wN=0;st.wInc=true;st.cInc=true;st.sk={};st.cpInc=false;syncX();rows()};
